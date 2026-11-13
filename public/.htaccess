@@ -1,2 +1,6 @@
-# TODO: configurar roteamento e segurança do Apache após definir o front controller.
-# O DocumentRoot deverá apontar para public/.
+Options -Indexes
+DirectoryIndex index.php
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+</IfModule>
