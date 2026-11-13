@@ -1,0 +1,2 @@
+# TODO: configurar roteamento e segurança do Apache após definir o front controller.
+# O DocumentRoot deverá apontar para public/.

@@ -1,0 +1,9 @@
+{
+  "name": "GymProgress",
+  "short_name": "GymProgress",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D1115",
+  "theme_color": "#00D87A",
+  "icons": []
+}

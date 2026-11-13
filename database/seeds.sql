@@ -1,0 +1,2 @@
+-- TODO: estrutura de banco PENDENTE de modelagem e aprovação.
+-- Não executar como schema final.
