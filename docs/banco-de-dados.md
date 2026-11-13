@@ -1,9 +1,9 @@
 # GymProgress — Modelagem do banco de dados
 
-> **Versão:** 1.2 — **PROPOSTA TÉCNICA PARA REVISÃO (não aprovada)**  
-> **Tecnologia prevista:** MySQL/MariaDB (Laragon), PHP com PDO, `utf8mb4`, InnoDB.  
+> **Versão:** 1.3 — **MODELAGEM APROVADA PARA TESTES (MySQL 8.4.3)**  
+> **Tecnologia confirmada:** MySQL 8.4.3 (Laragon), PHP com PDO, `utf8mb4`, InnoDB.  
 > **Documentos preservados:** 189 regras de negócio e 49 cuidados técnicos aprovados; 46 requisitos funcionais e 25 não funcionais aprovados. Requisitos adicionais de Metas ainda pendentes de homologação.  
-> **Não é um esquema SQL executável.** O futuro `database/schema.sql` será gerado após validação desta modelagem.
+> **Esquema SQL executável disponível:** `database/schema.sql`, para utilização apenas em banco novo e vazio após seleção explícita da base no phpMyAdmin.
 
 ## 1. Visão geral
 
@@ -384,3 +384,40 @@ gatilhos ou política mais restrita de permissões do banco.
 | 46 RF e 25 RNF | **APROVADOS, inalterados** |
 | RF/RNF adicionais de Metas | **PENDENTES** |
 | `database/schema.sql` | **AINDA NÃO IMPLEMENTADO** |
+
+
+---
+
+## 9. Homologação parcial do esquema no MySQL 8.4.3 — 13/11/2026
+
+A modelagem de 12 tabelas foi **aprovada pelo usuário para testes**. Os testes
+relatados no phpMyAdmin do banco separado `gymprogress_teste` confirmaram:
+
+- 12 tabelas criadas e listadas.
+- 12 chaves primárias, 17 chaves estrangeiras, 20 restrições `CHECK` e
+  8 restrições `UNIQUE` cadastradas (57 ao todo).
+- Coluna gerada `usuario_ativo_id` e índice único
+  `uq_sessao_ativa_usuario` encontrados; segunda sessão simultânea
+  rejeitada pelo erro `#1062`.
+- Tentativa de ficha de usuário inexistente rejeitada pelo erro `#1452`,
+  sem registro residual.
+- Chaves `ON DELETE CASCADE` em `sessao_exercicios` e
+  `series_realizadas`, e `RESTRICT` para o exercício da biblioteca.
+- Teste transacional de cascata retornou sessões=0, exercícios da sessão=0,
+  séries=0 e exercício da biblioteca preservado=1; seguido de `ROLLBACK`.
+
+**Limites da aprovação:** não foram testados exaustivamente todos os `CHECK`,
+todas as FKs, nem as regras de autorização e transição de estado. Uma sessão
+finalizada não é protegida contra `DELETE` direto apenas pelo esquema;
+o backend PHP deverá exigir propriedade e `status='em_andamento'` em
+transação, além de validações e auditoria. Nenhuma execução deste SQL
+pelo assistente foi realizada.
+
+**Uso seguro de `database/schema.sql`:** selecionar manualmente um banco
+**novo e vazio** no phpMyAdmin, conferir o nome da base com `SELECT DATABASE()`
+e só então importar. O arquivo não contém `CREATE DATABASE`, `USE`,
+`DROP`, `TRUNCATE` ou `DELETE`. Não reaplicar em banco existente na
+expectativa de alterar colunas: migrações futuras serão versionadas à parte.
+
+Os documentos `docs/regras-negocio.md` e `docs/requisitos.md` foram
+**preservados sem alterações**. O aditivo de RF/RNF para Metas segue pendente.

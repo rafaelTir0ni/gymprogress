@@ -2,13 +2,14 @@
 
 Esta pasta contém o **repositório original do usuário**, acrescido de arquivos
 e pastas necessários para representar os módulos aprovados. O código funcional
-**não foi implementado**: os PHP/JS/CSS/SQL possuem apenas comentários TODO.
+**não foi implementado**: os PHP/JS/CSS possuem apenas comentários TODO.
+O `database/schema.sql` agora contém a estrutura das 12 tabelas validada parcialmente no MySQL 8.4.3.
 
 ## Documentos incluídos
 - `README.md`: documento principal atualizado com o módulo Metas.
 - `docs/regras-negocio.md`: **189 RN e 49 cuidados técnicos aprovados**.
 - `docs/requisitos.md`: **46 RF e 25 RNF aprovados**, com aditivo descritivo de Metas ainda sem homologação própria.
-- `docs/banco-de-dados.md`: **proposta** de 12 tabelas, não definitiva.
+- `docs/banco-de-dados.md`: modelagem de 12 tabelas **aprovada para testes**, com relatório dos testes concluídos e limitações.
 - `docs/arquitetura.md`: **diretrizes preliminares**, não arquitetura implementada.
 
 ## Principais arquivos acrescidos
@@ -20,7 +21,7 @@ e pastas necessários para representar os módulos aprovados. O código funciona
 
 ## Pendências prioritárias
 1. Aprovar RF/RNF adicionais de Metas; atualizar requisitos.
-2. Concluir modelagem do banco (campos, chaves, índices, restrições).
+2. Ampliar os testes de integridade do SQL e planejar migrações; modelagem inicial aprovada para testes.
 3. Implementar autenticação, rotas, sessão e segurança.
 4. Implementar fichas, biblioteca e sistema de treinos.
 5. Implementar histórico editável com auditoria, estatísticas e metas.
