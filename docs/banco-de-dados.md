@@ -1,6 +1,6 @@
 # GymProgress — Modelagem do banco de dados
 
-> **Versão:** 1.1 — **PROPOSTA PARA REVISÃO (não aprovada)**  
+> **Versão:** 1.2 — **PROPOSTA TÉCNICA PARA REVISÃO (não aprovada)**  
 > **Tecnologia prevista:** MySQL/MariaDB (Laragon), PHP com PDO, `utf8mb4`, InnoDB.  
 > **Documentos preservados:** 189 regras de negócio e 49 cuidados técnicos aprovados; 46 requisitos funcionais e 25 não funcionais aprovados. Requisitos adicionais de Metas ainda pendentes de homologação.  
 > **Não é um esquema SQL executável.** O futuro `database/schema.sql` será gerado após validação desta modelagem.
@@ -241,3 +241,146 @@ O estado exibido **Prazo encerrado** será derivado quando a meta ainda não tiv
 ## 7. Decisão registrada nesta revisão
 
 **13/11/2026 — descarte confirmado:** sessão descartada deve ser fisicamente excluída junto com seus exercícios e séries, após confirmação, preservando fichas, Biblioteca e histórico finalizado. **A modelagem integral ainda aguarda aprovação.**
+
+
+---
+
+## 6. Especificação técnica proposta — tipos e chaves
+
+A versão 1.2 **não é o SQL executável**. Antes de converter as definições em
+`database/schema.sql`, confirmar se o banco instalado no Laragon é **MySQL 8.x
+ou MariaDB** e sua versão específica, pois a sintaxe de coluna gerada, `JSON`,
+`CHECK` e índices pode variar.
+
+### Convenções comuns
+
+- Tabelas em **InnoDB**, collation `utf8mb4_unicode_ci` ou equivalente compatível.
+- Identificadores: `BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY`.
+- Timestamps de eventos em **UTC** no banco; conversão ao fuso do usuário
+  no PHP. Preferir `DATETIME(6)` quando precisão subsegundo for importante.
+- Campos `criado_em`/`atualizado_em`: `DATETIME`, atualização controlada pelo banco
+  ou aplicativo de forma consistente.
+- Valores de carga: `DECIMAL(7,2)`; não usar `FLOAT` para pesos ou volume.
+- Valores de séries e repetições: `SMALLINT UNSIGNED`, positivos quando realizados;
+  valores ainda não executados podem ser `NULL` conforme estado.
+- Estados e categorias: `VARCHAR` com `CHECK` válido na versão instalada,
+  ou `ENUM` estável. Não permitir estados desconhecidos.
+- Nomes de usuário, exercício e ficha devem passar por validação de comprimento,
+  normalização e escape de saída.
+- Dados sensíveis ficam fora do diretório servido pelo Apache.
+
+### Matriz de chaves estrangeiras e políticas de exclusão
+
+| Origem | Campo | Referência | Exclusão proposta | Justificativa |
+|---|---|---|---|---|
+| `recuperacao_senhas` | `usuario_id` | `usuarios.id` | `CASCADE` | Remove tokens de conta removida pelo fluxo autorizado |
+| `fichas` | `usuario_id` | `usuarios.id` | `RESTRICT` | Não apagar fichas e histórico acidentalmente |
+| `exercicios` | `usuario_id` (nullable) | `usuarios.id` | `RESTRICT` | Preservar exercícios personalizados |
+| `ficha_exercicios` | `ficha_id` | `fichas.id` | `CASCADE` | Excluir associação quando ficha sem histórico é excluída |
+| `ficha_exercicios` | `exercicio_id` | `exercicios.id` | `RESTRICT` | Preferir arquivar exercícios referenciados |
+| `sessoes` | `usuario_id` | `usuarios.id` | `RESTRICT` | Preservar sessões finalizadas |
+| `sessoes` | `ficha_id` | `fichas.id` | `RESTRICT` | Impede exclusão de ficha com histórico ou sessão ativa |
+| `sessao_exercicios` | `sessao_id` | `sessoes.id` | `CASCADE` | Limpeza estrita ao descartar uma sessão em andamento |
+| `sessao_exercicios` | `exercicio_id` | `exercicios.id` | `RESTRICT` | Preservar vínculos históricos |
+| `series_realizadas` | `sessao_exercicio_id` | `sessao_exercicios.id` | `CASCADE` | Limpeza das séries de sessão descartada; remoção histórica apenas em transação e com auditoria |
+| `historico_alteracoes` | `sessao_id` | `sessoes.id` | `RESTRICT` | Preservar auditoria de sessão finalizada |
+| `historico_alteracoes` | `usuario_id` | `usuarios.id` | `RESTRICT` | Preservar autoria da correção |
+| `metas` | `usuario_id` | `usuarios.id` | `RESTRICT` | Proteger metas |
+| `metas` | `exercicio_id` (nullable) | `exercicios.id` | `RESTRICT` | Não perder referência da meta de carga |
+| `usuario_conquistas` | `usuario_id` | `usuarios.id` | `RESTRICT` | Preservar conquistas |
+| `usuario_conquistas` | `conquista_id` | `conquistas.id` | `RESTRICT` | Preservar definições de conquista |
+| `usuario_conquistas` | `exercicio_id` (nullable) | `exercicios.id` | `RESTRICT` | Preservar recordes |
+
+**Observação de integridade:** `CASCADE` é uma política de chave
+estrangeira, não uma autorização de negócio. O PHP deve verificar
+**proprietário e estado** da sessão antes de excluí-la. O banco, sozinho,
+não distingue uma exclusão legitimamente descartada de uma tentativa
+indevida de remover uma sessão finalizada. Portanto, acesso ao banco e
+permissões de escrita devem permanecer controlados.
+
+**Correções históricas:** mesmo que o relacionamento das séries use
+`CASCADE`, o endpoint de edição histórica deverá validar a sessão,
+auditar valores anteriores e novos na mesma transação e verificar que
+resta pelo menos uma série concluída. A FK não substitui essa verificação.
+
+### Unicidade e índices recomendados
+
+| Tabela | Índice / restrição |
+|---|---|
+| `usuarios` | `UNIQUE(email)` com collation comparativa apropriada |
+| `recuperacao_senhas` | `INDEX(usuario_id, expira_em)`; opcional `UNIQUE(token_hash)` |
+| `fichas` | `INDEX(usuario_id, status)` |
+| `exercicios` | `INDEX(usuario_id, status, grupo_muscular)` e índice de busca por nome conforme volume |
+| `ficha_exercicios` | `UNIQUE(ficha_id, exercicio_id)`; `INDEX(ficha_id, ordem)` |
+| `sessoes` | `INDEX(usuario_id, status, iniciada_em)` e unicidade de sessão ativa detalhada abaixo |
+| `sessao_exercicios` | `INDEX(sessao_id, ordem)` e `INDEX(exercicio_id)` |
+| `series_realizadas` | `UNIQUE(sessao_exercicio_id, numero_serie)` |
+| `historico_alteracoes` | `INDEX(sessao_id, alterado_em)` |
+| `metas` | `INDEX(usuario_id, status_base, prazo_em)`; `INDEX(exercicio_id)` |
+| `conquistas` | `UNIQUE(codigo)` |
+| `usuario_conquistas` | `UNIQUE(usuario_id, chave_ocorrencia)` e `INDEX(usuario_id, valida)` |
+
+**Uma sessão ativa por usuário:** índices únicos comuns em
+`(usuario_id, status)` bloqueariam várias sessões finalizadas do mesmo
+usuário, portanto **não devem ser usados**. Proposta: coluna gerada
+`usuario_ativo_id = CASE WHEN status = 'em_andamento' THEN usuario_id ELSE NULL END`
+com índice `UNIQUE(usuario_ativo_id)`; índices únicos permitem diversos
+`NULL`, mas apenas um registro ativo por usuário. Validar sintaxe e
+suporte da edição específica do MySQL/MariaDB; complementar com
+transações e tratamento de colisão na criação.
+
+**Ocorrências de conquista:** a `chave_ocorrencia` deve conter
+identidade lógica estável (tipo, exercício, período ou marco). Uma nova
+carga máxima na mesma semana **atualiza** a ocorrência semanal; não
+produz um registro duplicado nem novos avisos para o mesmo evento.
+
+### Restrições que exigem lógica de aplicação ou gatilho específico
+
+1. Ficha e exercício associados devem ser do mesmo usuário, ou o
+   exercício pertencer ao catálogo público (`exercicios.usuario_id IS NULL`).
+2. Uma sessão pertence ao mesmo usuário da ficha original.
+3. Uma sessão finalizada precisa manter pelo menos uma série concluída,
+   inclusive após edição histórica.
+4. `finalizada_em` não pode anteceder `iniciada_em`; duração deve ser
+   recalculada em segundos quando horários forem corrigidos.
+5. Cada série concluída precisa registrar repetições coerentes com
+   validação aprovada e não ter carga negativa.
+6. Metas do tipo `carga` exigem `exercicio_id`; metas de frequência e
+   quantidade devem exigir alvo inteiro e positivo. Prazo é opcional.
+7. Exercícios gerais (`usuario_id IS NULL`) não podem ser editados pelos
+   usuários comuns.
+8. Apenas sessão **em andamento** pode ser fisicamente descartada pelo
+   fluxo de descarte; sessão finalizada permanece preservada.
+
+Algumas dessas verificações abrangem várias tabelas e não são
+expressáveis apenas por `CHECK`. Elas precisam ser garantidas com
+**transações e validação no backend**, e em casos críticos, eventualmente
+gatilhos ou política mais restrita de permissões do banco.
+
+## 7. Pontos que merecem revisão antes da aprovação do modelo
+
+- **Versão exata do banco:** o Laragon pode utilizar MySQL ou MariaDB.
+  Confirmar produto e versão para escrever o esquema executável sem
+  incompatibilidades de sintaxe.
+- **Exclusão de conta:** ainda não foi definido um fluxo de exclusão
+  completa de conta; as relações estão conservadoras (`RESTRICT`) para
+  impedir perda acidental de dados. Esse recurso, se desejado, exigirá
+  decisão própria sobre retenção e remoção.
+- **Estados históricos de exercícios:** após correções em uma sessão,
+  preservar série concluída e estado de exercício coerentes; a interface
+  não deve marcar séries pendentes como realizadas automaticamente.
+- **Dados de progresso das metas:** derivar progresso de sessões
+  finalizadas e guardar apenas o estado/identidade necessário para
+  conquistas e avisos. Assim, correções históricas podem ser refletidas
+  sem divergência entre valores cacheados e reais.
+
+## 8. Controle desta revisão
+
+| Item | Estado |
+|---|---|
+| Descarte físico de sessão em andamento | **DECISÃO CONFIRMADA** |
+| 12 tabelas, tipos, FKs, índices e unicidades | **PROPOSTA PARA APROVAÇÃO** |
+| 189 RN e 49 CT | **APROVADOS, inalterados** |
+| 46 RF e 25 RNF | **APROVADOS, inalterados** |
+| RF/RNF adicionais de Metas | **PENDENTES** |
+| `database/schema.sql` | **AINDA NÃO IMPLEMENTADO** |
