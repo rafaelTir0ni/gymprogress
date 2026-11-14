@@ -1,10 +1,22 @@
+-- GymProgress schema
+-- Desenvolvimento e testes: banco padrão automatizado
+CREATE DATABASE IF NOT EXISTS gymprogress_teste
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+USE gymprogress_teste;
+
 -- GymProgress | Schema inicial de desenvolvimento | MySQL 8.4.3
 -- Modelagem das 12 tabelas APROVADA para testes.
 -- Validado pelo usuario no phpMyAdmin (gymprogress_teste): criacao das 12 tabelas,
 -- 57 restricoes, uma unica sessao ativa, FK de fichas e exclusao em cascata.
 -- NAO e validacao integral das regras de negocio (dependencias do backend).
--- IMPORTANTE: selecione previamente um banco NOVO e VAZIO no phpMyAdmin.
--- Este arquivo NAO cria/seleciona um banco, nem apaga dados existentes.
+-- AMBIENTE ATUAL: apenas o banco gymprogress_teste (desenvolvimento e testes).
+-- IMPORTANTE: selecione manualmente gymprogress_teste no phpMyAdmin.
+-- Confirme com SELECT DATABASE() antes de executar o schema.
+-- Use em base vazia; nao execute novamente em base populada esperando migracoes.
+-- Este arquivo NAO cria/seleciona banco, nem apaga dados existentes.
+-- NAO crie gymprogress (base definitiva) antes de concluir todos os testes.
 -- CREATE TABLE IF NOT EXISTS NAO atualiza tabelas existentes.
 -- Datas DATETIME devem ser fornecidas em UTC pelo backend.
 

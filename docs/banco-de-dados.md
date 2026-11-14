@@ -421,3 +421,12 @@ expectativa de alterar colunas: migrações futuras serão versionadas à parte.
 
 Os documentos `docs/regras-negocio.md` e `docs/requisitos.md` foram
 **preservados sem alterações**. O aditivo de RF/RNF para Metas segue pendente.
+
+## Decisão de ambiente de desenvolvimento — novembro/2026
+
+Até a conclusão dos testes de todos os módulos, o projeto usará **exclusivamente** `gymprogress_teste`. O banco definitivo `gymprogress` **não deve ser criado agora**. O `database/schema.sql` não contém `CREATE DATABASE` nem `USE`; para instalar uma vez em base nova e vazia, selecionar manualmente `gymprogress_teste` no phpMyAdmin antes da importação e confirmar com `SELECT DATABASE()`. Bancos já criados não devem receber a importação novamente como substituto de migração. Depois da validação completa, a versão definitiva terá base própria, com backup e migração seletiva de dados. Esta decisão não modifica RN, CT, RF ou RNF aprovados.
+
+
+## Atualização do schema.sql
+
+A partir desta revisão, `database/schema.sql` cria automaticamente o banco `gymprogress_teste` e executa `USE gymprogress_teste`, facilitando a configuração do projeto em dispositivos diferentes durante a fase de desenvolvimento e testes.

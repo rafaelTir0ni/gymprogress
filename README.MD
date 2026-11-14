@@ -776,13 +776,20 @@ gymprogress/
 
 ## Instalação e execução
 
-> **PENDENTE — instruções definitivas serão preenchidas após o primeiro ambiente funcional.** Não há instruções de instalação verificadas nem versão publicada neste momento.
+> **Em desenvolvimento local:** esquema MySQL 8.4.3 validado parcialmente no phpMyAdmin e autenticação básica implementada, ainda sujeita a testes completos no Laragon.
 
-**Ambiente local escolhido:** Windows, Laragon, PHP 8 e MySQL/MariaDB.
+**Ambiente local:** Windows, Laragon, PHP 8.3, MySQL 8.4.3 e PDO.
 
-<!-- INÍCIO BLOCO SUBSTITUÍVEL: INSTALAÇÃO -->
-**[INSERIR: pré-requisitos e versões testadas, configuração do Laragon e VirtualHost apontando para `public/`, criação/importação do banco, exemplo de configuração sem credenciais, comando/passos para iniciar e URL local efetivamente testada]**
-<!-- FIM BLOCO SUBSTITUÍVEL: INSTALAÇÃO -->
+### Banco de dados durante o desenvolvimento
+
+1. Durante **todos os testes**, usar apenas o banco **`gymprogress_teste`**. Não criar `gymprogress` por enquanto.
+2. Se `gymprogress_teste` já contém as 12 tabelas, **não executar novamente** `database/schema.sql`.
+3. Para instalação limpa, crie manualmente `gymprogress_teste`, selecione-o no phpMyAdmin, confirme com `SELECT DATABASE();` e importe `database/schema.sql` **uma única vez** em banco vazio. O script intencionalmente não tem `CREATE DATABASE` nem `USE`.
+4. Copie `.env.example` para `.env` (a cópia local **não vai para o Git**), confira `DB_DATABASE=gymprogress_teste` e ajuste as credenciais locais. Nunca publique seu `.env`.
+5. Inicie Apache e MySQL no Laragon e tente `http://localhost/gymprogress/public/index.php?route=cadastro`. O acesso depende da pasta e da configuração local.
+6. Teste cadastro, login, logout e bloqueio ao Dashboard após logout; veja `docs/autenticacao-implementacao.md`.
+
+**Depois da conclusão dos testes**, criar `gymprogress` como base definitiva e migrar seletivamente os dados úteis, com backup e verificação. Projetado inicialmente para uso pessoal em celular; uso fora da rede local requer publicação segura.
 
 **Segurança:** nunca versionar senhas, segredos, dados reais de usuários ou arquivos com credenciais. Configurações de exemplo devem usar valores fictícios.
 
@@ -875,3 +882,8 @@ Os protótipos visuais aprovados adotam dark mode, grafite e verde-esmeralda. El
 **GymProgress** — Projeto pessoal em desenvolvimento.
 
 </div>
+
+
+## Banco de dados no desenvolvimento
+
+O arquivo `database/schema.sql` cria automaticamente o banco `gymprogress_teste` com `utf8mb4` e executa `USE gymprogress_teste`. Isso facilita importar o projeto em dispositivos diferentes, sem depender de criar ou selecionar o banco manualmente no phpMyAdmin.
