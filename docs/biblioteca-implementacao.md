@@ -47,3 +47,13 @@
 ## Commit sugerido
 
 `feat: implement exercise library management`
+
+
+## Correção v1.1 — exercícios equivalentes
+
+- Um `UNIQUE(ficha_id, exercicio_id)` bloqueia somente o mesmo ID. Dois exercícios distintos com nome e grupo muscular idênticos antes passavam.
+- Agora a inclusão na ficha também verifica **nome sem diferenciar maiúsculas/minúsculas, com espaços nas bordas ignorados, e grupo muscular**. Rejeita equivalentes mesmo com IDs diferentes.
+- Novo cadastro ou edição de exercício personalizado verifica equivalência na Biblioteca do mesmo usuário, inclusive registros arquivados.
+- Os dados existentes não são apagados nem mesclados automaticamente. Para resolver os dois Crossovers já cadastrados, mantenha o que contém descrição e arquive o outro, se desejar. Na ficha, remova a associação repetida manualmente.
+- A validação é feita na aplicação; a proteção de concorrência estrita entre cadastros simultâneos exige índice ou transação adicional caso o projeto passe a ter múltiplos usuários simultâneos.
+- Testes sugeridos: tentar cadastrar novo Crossover/Peito; adicionar à ficha um segundo Crossover/Peito por ID diferente; confirmar que exercícios de nomes semelhantes em grupos diferentes continuam permitidos.

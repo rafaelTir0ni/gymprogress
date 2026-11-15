@@ -26,8 +26,27 @@ final class FichaExercicio
         return (int) $st->fetchColumn();
     }
 
+    /** Compara identidade semântica (nome + grupo), além do id único. */
+    public static function hasEquivalent(int $fichaId, string $name, string $group): bool
+    {
+        $st = db()->prepare('SELECT 1 FROM ficha_exercicios fe
+            INNER JOIN exercicios e ON e.id = fe.exercicio_id
+            WHERE fe.ficha_id = ?
+              AND LOWER(TRIM(e.nome)) = LOWER(TRIM(?))
+              AND e.grupo_muscular = ? LIMIT 1');
+        $st->execute([$fichaId, $name, $group]);
+        return (bool) $st->fetchColumn();
+    }
+
     public static function add(int $fichaId, int $exerciseId, int $sets, int $min, int $max): void
     {
+        $exercise = db()->prepare('SELECT nome, grupo_muscular FROM exercicios WHERE id = ?');
+        $exercise->execute([$exerciseId]);
+        $details = $exercise->fetch();
+        if (!$details) throw new RuntimeException('Exercício não encontrado.');
+        if (self::hasEquivalent($fichaId, $details['nome'], $details['grupo_muscular'])) {
+            throw new DomainException('Esta ficha já contém um exercício com o mesmo nome e grupo muscular.');
+        }
         $st = db()->prepare('INSERT INTO ficha_exercicios
             (ficha_id, exercicio_id, ordem, series_planejadas, reps_min, reps_max)
             VALUES (?, ?, ?, ?, ?, ?)');

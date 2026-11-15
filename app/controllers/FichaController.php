@@ -115,6 +115,13 @@ final class FichaController
                                     $this->error(422, 'Use apenas URLs HTTP/HTTPS válidas de até 500 caracteres.');
                                 }
                             }
+                            $existing = Exercicio::findEquivalent($userId, $name, $group);
+                            if ($existing) {
+                                $this->error(409, 'Esse exercício já existe na Biblioteca (ID ' . $existing['id'] . '). Use a opção de adicionar exercício existente.');
+                            }
+                            if (FichaExercicio::hasEquivalent($id, $name, $group)) {
+                                $this->error(409, 'Esta ficha já contém um exercício com esse nome e grupo muscular.');
+                            }
                             $st = db()->prepare('INSERT INTO exercicios (usuario_id, nome, grupo_muscular, descricao, imagem_url, video_url) VALUES (?, ?, ?, ?, ?, ?)');
                             $st->execute([$userId, $name, $group, $description ?: null, $image ?: null, $video ?: null]);
                             $exerciseId = (int) db()->lastInsertId();
@@ -150,6 +157,9 @@ final class FichaController
             }, $id);
             flash($deleted ? 'Ficha excluída.' : 'Alterações salvas.');
             if ($deleted) go('fichas');
+            $this->redirectDetails($id);
+        } catch (DomainException $ex) {
+            flash($ex->getMessage());
             $this->redirectDetails($id);
         } catch (PDOException $ex) {
             if ($ex->getCode() === '23000') {

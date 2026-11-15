@@ -11,6 +11,7 @@ require_once dirname(__DIR__) . '/app/models/Ficha.php';
 require_once dirname(__DIR__) . '/app/models/FichaExercicio.php';
 require_once dirname(__DIR__) . '/app/models/Exercicio.php';
 require_once dirname(__DIR__) . '/app/controllers/FichaController.php';
+require_once dirname(__DIR__) . '/app/controllers/BibliotecaController.php';
 
 // Em produção use HTTPS; em ambiente local o cookie Secure precisa acompanhar a conexão.
 $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
@@ -50,6 +51,16 @@ try {
             (new FichaController())->edit(); break;
         case 'fichas-acao':
             (new FichaController())->action(); break;
+        case 'biblioteca':
+            (new BibliotecaController())->index(); break;
+        case 'biblioteca-detalhes':
+            (new BibliotecaController())->details(); break;
+        case 'biblioteca-criar':
+            (new BibliotecaController())->create(); break;
+        case 'biblioteca-editar':
+            (new BibliotecaController())->edit(); break;
+        case 'biblioteca-acao':
+            (new BibliotecaController())->action(); break;
         case 'dashboard':
             requireLogin();
             require dirname(__DIR__) . '/app/views/dashboard/index.php'; break;
