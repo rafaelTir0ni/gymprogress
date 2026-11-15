@@ -12,10 +12,10 @@ USE gymprogress_teste;
 -- 57 restricoes, uma unica sessao ativa, FK de fichas e exclusao em cascata.
 -- NAO e validacao integral das regras de negocio (dependencias do backend).
 -- AMBIENTE ATUAL: apenas o banco gymprogress_teste (desenvolvimento e testes).
--- IMPORTANTE: selecione manualmente gymprogress_teste no phpMyAdmin.
--- Confirme com SELECT DATABASE() antes de executar o schema.
+-- O script cria e seleciona automaticamente gymprogress_teste (para nova instalacao).
+-- Confirme a base ativa com SELECT DATABASE() caso queira verificar.
 -- Use em base vazia; nao execute novamente em base populada esperando migracoes.
--- Este arquivo NAO cria/seleciona banco, nem apaga dados existentes.
+-- Este arquivo CRIA/SELECIONA gymprogress_teste; nao apaga dados existentes.
 -- NAO crie gymprogress (base definitiva) antes de concluir todos os testes.
 -- CREATE TABLE IF NOT EXISTS NAO atualiza tabelas existentes.
 -- Datas DATETIME devem ser fornecidas em UTC pelo backend.

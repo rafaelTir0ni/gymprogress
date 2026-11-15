@@ -12,6 +12,8 @@ require_once dirname(__DIR__) . '/app/models/FichaExercicio.php';
 require_once dirname(__DIR__) . '/app/models/Exercicio.php';
 require_once dirname(__DIR__) . '/app/controllers/FichaController.php';
 require_once dirname(__DIR__) . '/app/controllers/BibliotecaController.php';
+require_once dirname(__DIR__) . '/app/models/Sessao.php';
+require_once dirname(__DIR__) . '/app/controllers/SessaoController.php';
 
 // Em produção use HTTPS; em ambiente local o cookie Secure precisa acompanhar a conexão.
 $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
@@ -61,6 +63,16 @@ try {
             (new BibliotecaController())->edit(); break;
         case 'biblioteca-acao':
             (new BibliotecaController())->action(); break;
+        case 'treinar': (new SessaoController())->index(); break;
+        case 'treinar-iniciar': (new SessaoController())->start(); break;
+        case 'treinar-andamento': (new SessaoController())->show(); break;
+        case 'treinar-salvar': (new SessaoController())->save(); break;
+        case 'treinar-adicionar-serie': (new SessaoController())->addSet(); break;
+        case 'treinar-exercicio': (new SessaoController())->exercise(); break;
+        case 'treinar-resumo': (new SessaoController())->preview(); break;
+        case 'treinar-finalizar': (new SessaoController())->finish(); break;
+        case 'treinar-descartar': (new SessaoController())->discard(); break;
+        case 'treinar-grafico': (new SessaoController())->graph(); break;
         case 'dashboard':
             requireLogin();
             require dirname(__DIR__) . '/app/views/dashboard/index.php'; break;

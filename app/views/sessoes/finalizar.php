@@ -1,3 +1,14 @@
-<?php
-// TODO (GymProgress): implementar este arquivo conforme docs/requisitos.md
-// e docs/regras-negocio.md. Estrutura reservada; nenhuma funcionalidade ativa.
+<?php $pageTitle=$session['status']==='finalizada'?'Treino finalizado':'Revisar treino';require __DIR__.'/_top.php';
+$states=['concluido'=>0,'concluido_antecipadamente'=>0,'parcialmente_realizado'=>0,'pendente'=>0];foreach($items as $it)$states[$it['status']]++;
+$end=$session['status']==='finalizada'; ?>
+<a class="back" href="<?= e(routeUrl('treinar')) ?>">← Treinar</a><h1><?= $end?'Treino finalizado':'Resumo antes de finalizar' ?></h1><p class="muted"><?= e($session['nome_ficha_snapshot']) ?></p>
+<?php if($notice): ?><p class="alert" role="status"><?= e($notice) ?></p><?php endif; ?>
+<div class="stat-grid"><div class="panel"><strong><?= (int)$totals['feitas'] ?></strong><span>Séries concluídas</span></div><div class="panel"><strong><?= number_format((float)$totals['volume'],2,',','.') ?> kg</strong><span>Volume com carga externa</span></div><div class="panel"><strong><?= $end?gmdate('H:i:s',(int)$session['duracao_segundos']):'Em andamento' ?></strong><span>Duração total (com pausas)</span></div></div>
+<div class="panel"><h2>Exercícios</h2><p>Concluídos: <?= $states['concluido'] ?> · Antecipados: <?= $states['concluido_antecipadamente'] ?> · Parciais: <?= $states['parcialmente_realizado'] ?> · Pendentes: <?= $states['pendente'] ?></p>
+<?php foreach($items as $it): ?><div class="summary-line"><div><strong><?= e($it['nome_exercicio_snapshot']) ?></strong><p class="muted small"><?= e(str_replace('_',' ',$it['status'])) ?></p></div><span><?= count(array_filter($series[(int)$it['id']]??[],fn($r)=>(int)$r['concluida']===1)) ?> / <?= (int)$it['series_planejadas_snapshot'] ?> séries</span></div><?php endforeach; ?></div>
+<?php if(!$end): ?>
+<?php if((int)$totals['feitas']===0): ?><p class="alert error">Nenhuma série concluída. Continue o treino ou descarte esta sessão.</p><?php endif; ?>
+<div class="panel"><a class="button secondary full" href="<?= e(routeUrl('treinar-andamento').'&id='.$sid) ?>">Continuar treino</a><form method="post" action="<?= e(routeUrl('treinar-finalizar')) ?>" onsubmit="return confirm('Finalizar definitivamente esta sessão?');"><input type="hidden" name="_csrf" value="<?= e(csrfToken()) ?>"><input type="hidden" name="id" value="<?= $sid ?>"><button class="primary full" <?= !(int)$totals['feitas']?'disabled':'' ?>>Confirmar finalização</button></form></div>
+<div class="panel"><h2>Descartar sessão</h2><p class="muted small">Remove definitivamente apenas esta sessão em andamento, seus exercícios e séries. Sua ficha e a Biblioteca permanecem.</p><form method="post" action="<?= e(routeUrl('treinar-descartar')) ?>" onsubmit="return confirm('Tem certeza? Todos os registros desta sessão em andamento serão apagados.');"><input type="hidden" name="_csrf" value="<?= e(csrfToken()) ?>"><input type="hidden" name="id" value="<?= $sid ?>"><label>Digite DESCARTAR para confirmar<input type="text" name="confirmar" required pattern="DESCARTAR" autocomplete="off" placeholder="DESCARTAR"></label><button class="danger">Descartar definitivamente</button></form></div>
+<?php else: ?><div class="panel"><p class="muted">Os registros desta sessão estão preservados no banco. O módulo Histórico completo será desenvolvido em seguida.</p><a class="button primary" href="<?= e(routeUrl('treinar')) ?>">Voltar aos treinos</a></div><?php endif; ?>
+<?php require __DIR__.'/_bottom.php'; ?>
