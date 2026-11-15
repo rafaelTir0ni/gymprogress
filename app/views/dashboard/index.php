@@ -1,5 +1,6 @@
 <?php $pageTitle='Início'; $pageDescription='Seu espaço de treinos.'; require dirname(__DIR__) . '/layouts/header.php'; ?>
 <p class="notice" role="status">Olá, <?= e((string)($_SESSION['usuario_nome'] ?? 'atleta')) ?>! Você entrou com sucesso.</p>
+<p><a href="<?= e(routeUrl('fichas')) ?>" class="button-link">Gerenciar minhas fichas</a></p>
 <p class="muted">O Dashboard completo será implementado nos próximos módulos.</p>
 <form method="post" action="<?= e(routeUrl('logout')) ?>">
   <input type="hidden" name="_csrf" value="<?= e(csrfToken()) ?>">

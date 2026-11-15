@@ -7,6 +7,10 @@ require_once dirname(__DIR__) . '/app/helpers/auth.php';
 require_once dirname(__DIR__) . '/app/helpers/csrf.php';
 require_once dirname(__DIR__) . '/app/models/Usuario.php';
 require_once dirname(__DIR__) . '/app/controllers/AuthController.php';
+require_once dirname(__DIR__) . '/app/models/Ficha.php';
+require_once dirname(__DIR__) . '/app/models/FichaExercicio.php';
+require_once dirname(__DIR__) . '/app/models/Exercicio.php';
+require_once dirname(__DIR__) . '/app/controllers/FichaController.php';
 
 // Em produção use HTTPS; em ambiente local o cookie Secure precisa acompanhar a conexão.
 $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
@@ -36,6 +40,16 @@ try {
         case 'logout':
             if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); exit('Método inválido.'); }
             $controller->logout(); break;
+        case 'fichas':
+            (new FichaController())->index(); break;
+        case 'fichas-criar':
+            (new FichaController())->create(); break;
+        case 'fichas-detalhes':
+            (new FichaController())->details(); break;
+        case 'fichas-editar':
+            (new FichaController())->edit(); break;
+        case 'fichas-acao':
+            (new FichaController())->action(); break;
         case 'dashboard':
             requireLogin();
             require dirname(__DIR__) . '/app/views/dashboard/index.php'; break;
