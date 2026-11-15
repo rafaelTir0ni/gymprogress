@@ -60,24 +60,28 @@ final class Exercicio
         return $st->fetch() ?: null;
     }
 
-    /** Impede cadastrar outro exercício pessoal equivalente (nome + grupo). */
+   
     public static function findEquivalent(int $userId, string $name, string $group, ?int $exceptId = null): ?array
     {
         $sql = 'SELECT id, nome, status FROM exercicios
-                WHERE usuario_id = ?
-                  AND LOWER(TRIM(nome)) = LOWER(TRIM(?))
-                  AND grupo_muscular = ?';
+            WHERE usuario_id = ?
+              AND LOWER(TRIM(nome)) = LOWER(TRIM(?))
+              AND grupo_muscular = ?';
+
         $params = [$userId, $name, $group];
+
         if ($exceptId !== null) {
-            $sql .= ' AND id <> ?';
-            $params[] = $exceptId;
+        $sql .= ' AND id <> ?';
+        $params[] = $exceptId;
         }
+
         $sql .= ' ORDER BY id LIMIT 1';
+
         $st = db()->prepare($sql);
         $st->execute($params);
-        return $st->fetch() ?: null;
-    }
 
+    return $st->fetch() ?: null;
+    }
     public static function create(int $userId, array $v): int
     {
         $st = db()->prepare('INSERT INTO exercicios (usuario_id,nome,grupo_muscular,descricao,imagem_url,video_url) VALUES (?,?,?,?,?,?)');
