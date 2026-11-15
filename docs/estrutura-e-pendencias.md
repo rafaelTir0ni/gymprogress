@@ -2,8 +2,7 @@
 
 Esta pasta contém o **repositório original do usuário**, acrescido de arquivos
 e pastas necessários para representar os módulos aprovados. **A autenticação básica já possui implementação inicial** (cadastro, login, logout
-e proteção do Dashboard); precisa ser testada no Laragon. Os demais
-módulos PHP/JS/CSS permanecem principalmente como placeholders TODO.
+e proteção do Dashboard); precisa ser testada no Laragon. Os módulos Fichas, Biblioteca e Treinar já foram implementados e testados no Laragon; Histórico v1 está implementado e aguarda testes. Outros módulos ainda contêm placeholders TODO.
 O `database/schema.sql` agora contém a estrutura das 12 tabelas validada parcialmente no MySQL 8.4.3.
 
 ## Documentos incluídos
@@ -23,9 +22,9 @@ O `database/schema.sql` agora contém a estrutura das 12 tabelas validada parcia
 ## Pendências prioritárias
 1. Aprovar RF/RNF adicionais de Metas; atualizar requisitos.
 2. Ampliar os testes de integridade do SQL e planejar migrações; modelagem inicial aprovada para testes.
-3. Validar a autenticação básica no Laragon e completar posteriormente recuperação de senha e proteção de tentativas; não é prioridade para MVP pessoal.
-4. Implementar fichas, biblioteca e sistema de treinos.
-5. Implementar histórico editável com auditoria, estatísticas e metas.
+3. Autenticação básica testada no Laragon; completar posteriormente recuperação de senha e proteção avançada de tentativas (não prioritárias para o MVP pessoal).
+4. Fichas, Biblioteca e Treinar implementados e testados; validar Histórico v1.
+5. Histórico editável com auditoria implementado e aguardando testes no Laragon; estatísticas completas e metas permanecem pendentes.
 6. Desenvolver interface mobile-first no padrão preto/grafite/verde-esmeralda.
 7. Realizar testes manuais de todas as telas e automatizar fluxos críticos.
 8. Configurar PWA instalável e somente depois evoluir para offline.
@@ -39,8 +38,8 @@ No desenvolvimento, decidir se serão eliminados ou redirecionados para
 
 - Usar **apenas** `gymprogress_teste` no phpMyAdmin e no `.env` durante o desenvolvimento e a validação de todos os módulos.
 - **Não criar** `gymprogress` por enquanto.
-- `database/schema.sql` permanece **sem** `CREATE DATABASE` ou `USE`, para evitar seleção acidental de outra base.
-- Na primeira instalação, selecionar `gymprogress_teste` no phpMyAdmin e importar em banco **vazio**; se as tabelas já existem, **não reimportar** o schema.
+- `database/schema.sql` **cria e seleciona `gymprogress_teste` automaticamente** com `CREATE DATABASE IF NOT EXISTS` e `USE`, para facilitar novas instalações.
+- Na primeira instalação, importar o schema num servidor de desenvolvimento; ele cria/seleciona `gymprogress_teste`. Se as tabelas já existem, **não reimportar** o schema.
 - Quando todos os testes acabarem, criar o banco definitivo e migrar apenas dados que devam ser preservados, com backup e verificação.
 - O projeto é inicialmente de **uso pessoal no celular**, com interface mobile-first.
 
@@ -48,3 +47,15 @@ No desenvolvimento, decidir se serão eliminados ou redirecionados para
 ## Atualização do schema.sql
 
 A partir desta revisão, `database/schema.sql` cria automaticamente o banco `gymprogress_teste` e executa `USE gymprogress_teste`, facilitando a configuração do projeto em dispositivos diferentes durante a fase de desenvolvimento e testes.
+
+
+## Histórico v1 (implementado em código; aguardando testes no Laragon)
+
+- Listagem filtrada por datas UTC e ficha; somente sessões finalizadas do usuário autenticado.
+- Detalhes completos, snapshots, duração, volume, exercícios e séries.
+- Edição de sessões finalizadas com nome, início, fim, observações, exercícios, séries, cargas, repetições e estados; confirmação CORRIGIR.
+- Auditoria em `historico_alteracoes` com JSON de estado anterior e posterior, na mesma transação.
+- A sessão deve manter ao menos uma série concluída. Não há rota de exclusão integral de sessão finalizada.
+- Gráficos de carga do Treinar já calculam diretamente sobre dados concluídos e finalizados, refletindo as correções. Metas/conquistas ainda não implementadas.
+- **Não executar `schema.sql` novamente** em banco populado; não há migração para este módulo.
+- O arquivo `schema.sql` **já possui** `CREATE DATABASE IF NOT EXISTS gymprogress_teste` e `USE gymprogress_teste`, conforme decisão mais recente. A instrução antiga que diz o contrário está revogada.

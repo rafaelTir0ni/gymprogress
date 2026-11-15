@@ -1,3 +1,9 @@
-<?php
-// TODO (GymProgress): implementar este arquivo conforme docs/requisitos.md
-// e docs/regras-negocio.md. Estrutura reservada; nenhuma funcionalidade ativa.
+<?php $pageTitle='Detalhes do treino';require __DIR__.'/_top.php'; ?>
+<a class="back" href="<?= e(routeUrl('historico')) ?>">← Histórico</a><h1><?= e($session['nome_ficha_snapshot']) ?></h1><p class="muted"><?= e($session['iniciada_em']) ?> — <?= e($session['finalizada_em']) ?> (UTC)</p>
+<?php if($notice): ?><p class="alert" role="status"><?= e($notice) ?></p><?php endif; ?>
+<div class="stat-grid"><div class="panel"><strong><?= (int)$totals['feitas'] ?></strong><span>Séries concluídas</span></div><div class="panel"><strong><?= number_format((float)$totals['volume'],2,',','.') ?> kg</strong><span>Volume</span></div><div class="panel"><strong><?= gmdate('H:i:s',(int)$session['duracao_segundos']) ?></strong><span>Duração</span></div></div>
+<?php if($session['observacoes']): ?><div class="panel"><h2>Observações</h2><p><?= nl2br(e($session['observacoes'])) ?></p></div><?php endif; ?>
+<div class="panel"><h2>Exercícios registrados</h2><?php foreach($items as $item): ?><section class="hist-exercise"><h3><?= e($item['nome_exercicio_snapshot']) ?></h3><p class="muted small"><?= e($item['grupo_muscular_snapshot']) ?> · <?= e(str_replace('_',' ',$item['status'])) ?> · planejadas <?= (int)$item['series_planejadas_snapshot'] ?> séries (<?= (int)$item['reps_min_snapshot'] ?>–<?= (int)$item['reps_max_snapshot'] ?> reps)</p><div class="hist-table"><table><thead><tr><th>Série</th><th>Reps</th><th>Carga</th><th>Estado</th></tr></thead><tbody><?php foreach($series[(int)$item['id']]??[] as $set): ?><tr><td><?= (int)$set['numero_serie'] ?></td><td><?= $set['repeticoes']===null?'—':(int)$set['repeticoes'] ?></td><td><?= $set['carga_kg']===null?'—':e($set['carga_kg']).' kg' ?></td><td><?= (int)$set['concluida']?'Feita':'Pendente' ?></td></tr><?php endforeach; ?></tbody></table></div></section><?php endforeach; ?></div>
+<div class="panel"><a class="button primary full" href="<?= e(routeUrl('historico-editar').'&id='.$sid) ?>">Corrigir este treino</a><p class="muted small">A sessão não pode ser excluída. Toda correção é registrada para auditoria.</p></div>
+<div class="panel"><h2>Registro de correções</h2><?php if(!$changes): ?><p class="muted">Nenhuma correção ainda.</p><?php else: ?><ul><?php foreach($changes as $change): ?><li><?= e($change['alterado_em']) ?> UTC · Correção #<?= (int)$change['id'] ?></li><?php endforeach; ?></ul><?php endif; ?></div>
+<?php require __DIR__.'/_bottom.php'; ?>

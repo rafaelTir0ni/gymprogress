@@ -3,6 +3,7 @@
 <p><a href="<?= e(routeUrl('fichas')) ?>" class="button-link">Gerenciar minhas fichas</a></p>
 <p><a href="<?= e(routeUrl('treinar')) ?>" class="button-link">Iniciar ou continuar treino</a></p>
 <p><a href="<?= e(routeUrl('biblioteca')) ?>" class="button-link">Abrir Biblioteca de exercícios</a></p>
+<p><a href="<?= e(routeUrl('historico')) ?>" class="button-link">Ver Histórico de treinos</a></p>
 <p class="muted">O Dashboard completo será implementado nos próximos módulos.</p>
 <form method="post" action="<?= e(routeUrl('logout')) ?>">
   <input type="hidden" name="_csrf" value="<?= e(csrfToken()) ?>">

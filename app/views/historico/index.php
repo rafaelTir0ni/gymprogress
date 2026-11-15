@@ -1,3 +1,7 @@
-<?php
-// TODO (GymProgress): implementar este arquivo conforme docs/requisitos.md
-// e docs/regras-negocio.md. Estrutura reservada; nenhuma funcionalidade ativa.
+<?php $pageTitle='Histórico';require __DIR__.'/_top.php'; ?>
+<a class="back" href="<?= e(routeUrl('dashboard')) ?>">← Início</a><h1>Histórico de treinos</h1><p class="muted">Sessões finalizadas, da mais recente para a mais antiga.</p>
+<?php if($notice): ?><p class="alert" role="status"><?= e($notice) ?></p><?php endif; ?>
+<form class="panel hist-filters" method="get"><input type="hidden" name="route" value="historico"><label>De (UTC)<input type="date" name="de" value="<?= e($from) ?>"></label><label>Até (UTC)<input type="date" name="ate" value="<?= e($to) ?>"></label><label>Ficha<select name="ficha"><option value="0">Todas</option><?php foreach($fichas as $f): ?><option value="<?= (int)$f['id'] ?>" <?= $fid===(int)$f['id']?'selected':'' ?>><?= e($f['nome']) ?></option><?php endforeach; ?></select></label><button class="primary" type="submit">Filtrar</button><a href="<?= e(routeUrl('historico')) ?>" class="button secondary">Limpar</a></form>
+<?php if(!$sessions): ?><div class="panel"><p>Nenhuma sessão finalizada encontrada.</p><a class="button primary" href="<?= e(routeUrl('treinar')) ?>">Ir para Treinar</a></div><?php endif; ?>
+<?php foreach($sessions as $s): ?><article class="panel hist-card"><div><h2><?= e($s['nome_ficha_snapshot']) ?></h2><p class="muted small"><?= e($s['iniciada_em']) ?> UTC</p></div><div class="hist-metrics"><span><?= (int)$s['exercicios'] ?> exercícios</span><span><?= (int)$s['series'] ?> séries feitas</span><span><?= gmdate('H:i:s',(int)$s['duracao_segundos']) ?> duração</span></div><a class="button primary" href="<?= e(routeUrl('historico-detalhes').'&id='.(int)$s['id']) ?>">Ver detalhes</a></article><?php endforeach; ?>
+<?php require __DIR__.'/_bottom.php'; ?>

@@ -1,0 +1,1 @@
+</main><nav class="bottom-nav" aria-label="Navegação principal"><a href="<?= e(routeUrl('dashboard')) ?>">Início</a><a href="<?= e(routeUrl('fichas')) ?>">Fichas</a><a href="<?= e(routeUrl('treinar')) ?>">Treinar</a><a href="<?= e(routeUrl('biblioteca')) ?>">Biblioteca</a><span class="disabled">Perfil</span></nav></body></html>

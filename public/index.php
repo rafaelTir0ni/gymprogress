@@ -14,6 +14,9 @@ require_once dirname(__DIR__) . '/app/controllers/FichaController.php';
 require_once dirname(__DIR__) . '/app/controllers/BibliotecaController.php';
 require_once dirname(__DIR__) . '/app/models/Sessao.php';
 require_once dirname(__DIR__) . '/app/controllers/SessaoController.php';
+require_once dirname(__DIR__) . '/app/models/HistoricoAlteracao.php';
+require_once dirname(__DIR__) . '/app/services/HistoricoService.php';
+require_once dirname(__DIR__) . '/app/controllers/HistoricoController.php';
 
 // Em produção use HTTPS; em ambiente local o cookie Secure precisa acompanhar a conexão.
 $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
@@ -73,6 +76,10 @@ try {
         case 'treinar-finalizar': (new SessaoController())->finish(); break;
         case 'treinar-descartar': (new SessaoController())->discard(); break;
         case 'treinar-grafico': (new SessaoController())->graph(); break;
+        case 'historico': (new HistoricoController())->index(); break;
+        case 'historico-detalhes': (new HistoricoController())->details(); break;
+        case 'historico-editar': (new HistoricoController())->edit(); break;
+        case 'historico-salvar': (new HistoricoController())->save(); break;
         case 'dashboard':
             requireLogin();
             require dirname(__DIR__) . '/app/views/dashboard/index.php'; break;
