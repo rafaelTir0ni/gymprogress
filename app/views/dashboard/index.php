@@ -15,6 +15,12 @@ $duration = static function (int $seconds): string {
 <title>Início | GymProgress</title>
 <link rel="stylesheet" href="assets/css/dashboard.css">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/img/icons/icon-192.png">
+<link rel="apple-touch-icon" href="assets/img/icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<script src="assets/js/main.js" defer></script>
 </head>
 <body>
 <header class="dash-topbar">

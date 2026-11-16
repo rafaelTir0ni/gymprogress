@@ -90,3 +90,10 @@ A partir desta revisão, `database/schema.sql` cria automaticamente o banco `gym
 - Recalcula ao finalizar treinos, corrigir histórico e acessar Dashboard/Metas.
 - Usa as 12 tabelas do esquema existente e somente `gymprogress_teste`.
 - Consulte `docs/metas-implementacao.md` para limites e testes.
+
+
+## PWA v1 (pendente de testes)
+- Manifesto e três ícones de instalação adicionados, Service Worker de cache estático e página genérica sem conexão.
+- O cache não inclui respostas autenticadas nem registros de treino.
+- Para testar instalação no celular é necessária uma origem HTTPS segura.
+- Consulte `docs/pwa-implementacao.md`.
