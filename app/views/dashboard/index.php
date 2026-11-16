@@ -25,10 +25,9 @@ $duration = static function (int $seconds): string {
 <body>
 <header class="dash-topbar">
   <a class="dash-brand" href="<?= e(routeUrl('dashboard')) ?>"><span class="dash-logo">G</span><span>GymProgress</span></a>
-  <form method="post" action="<?= e(routeUrl('logout')) ?>">
-    <input type="hidden" name="_csrf" value="<?= e(csrfToken()) ?>">
-    <button class="dash-logout" type="submit">Sair</button>
-  </form>
+  <a class="gp-avatar-link" href="<?= e(routeUrl('perfil')) ?>" aria-label="Abrir meu perfil" title="Meu perfil">
+    <?= profileAvatarMarkup($profile['foto_perfil'] ?? null, (string) ($profile['nome'] ?? 'Atleta')) ?>
+  </a>
 </header>
 <main class="dashboard-screen">
   <?php if ($notice): ?><p class="dash-notice" role="status"><?= e($notice) ?></p><?php endif; ?>

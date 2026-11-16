@@ -7,9 +7,10 @@ final class DashboardController
     {
         requireLogin();
         $uid = currentUserId();
-        $st = db()->prepare('SELECT timezone FROM usuarios WHERE id = ?');
+        $st = db()->prepare('SELECT timezone, nome, foto_perfil FROM usuarios WHERE id = ?');
         $st->execute([$uid]);
-        $timezoneName = (string) ($st->fetchColumn() ?: 'America/Sao_Paulo');
+        $profile = $st->fetch() ?: ['timezone' => 'America/Sao_Paulo', 'nome' => 'Atleta', 'foto_perfil' => null];
+        $timezoneName = (string) ($profile['timezone'] ?: 'America/Sao_Paulo');
         try { $timezone = new DateTimeZone($timezoneName); }
         catch (Exception $exception) { $timezone = new DateTimeZone('America/Sao_Paulo'); }
 

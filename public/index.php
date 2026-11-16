@@ -4,6 +4,7 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/config/database.php';
 require_once dirname(__DIR__) . '/app/helpers/validation.php';
 require_once dirname(__DIR__) . '/app/helpers/auth.php';
+require_once dirname(__DIR__) . '/app/helpers/profile_image.php';
 require_once dirname(__DIR__) . '/app/helpers/csrf.php';
 require_once dirname(__DIR__) . '/app/models/Usuario.php';
 require_once dirname(__DIR__) . '/app/controllers/AuthController.php';
@@ -100,6 +101,9 @@ try {
         case 'perfil-editar': (new PerfilController())->edit(); break;
         case 'perfil-seguranca': (new PerfilController())->security(); break;
         case 'perfil-configuracoes': (new PerfilController())->settings(); break;
+        case 'perfil-foto': (new PerfilController())->photo(); break;
+        case 'perfil-foto-salvar': (new PerfilController())->uploadPhoto(); break;
+        case 'perfil-foto-remover': (new PerfilController())->removePhoto(); break;
         default:
             http_response_code(404);
             require dirname(__DIR__) . '/app/views/auth/404.php';
