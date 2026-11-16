@@ -154,3 +154,14 @@ a { -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+/* Avatar reutilizável nas páginas autenticadas */
+.gp-avatar-link{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;padding:2px;border:2px solid #00d87a;flex-shrink:0;min-width:44px;min-height:44px}
+.gp-avatar{display:grid;place-items:center;width:38px;height:38px;background:#19523a;color:#a0ffd0;border-radius:50%;overflow:hidden;font-weight:800;font-size:19px}
+.gp-avatar img,.perfil-avatar img{display:block;width:100%;height:100%;object-fit:cover}
+.gp-avatar-link:focus-visible{outline:2px solid #a0ffd0;outline-offset:3px}
+
+/* Avatar no cabeçalho: impede qualquer CSS global de ampliar a imagem */
+.dash-topbar .gp-avatar-link{width:48px;height:48px;min-width:48px;min-height:48px;max-width:48px;max-height:48px;flex:0 0 48px;overflow:hidden;padding:3px}
+.dash-topbar .gp-avatar-link .gp-avatar{width:38px;height:38px;min-width:38px;min-height:38px;max-width:38px;max-height:38px;overflow:hidden;border-radius:50%;flex:0 0 38px}
+.dash-topbar .gp-avatar-link .gp-avatar img{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:cover!important;border-radius:50%}

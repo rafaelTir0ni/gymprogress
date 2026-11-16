@@ -1,5 +1,5 @@
 /* GymProgress PWA v1 — páginas e dados pessoais nunca entram no cache. */
-const CACHE_NAME = "gymprogress-static-v3-dashboard-20261116";
+const CACHE_NAME = "gymprogress-static-v5-avatar-crop-20261116";
 const FILES = [
   "offline.html",
   "manifest.webmanifest",
@@ -20,6 +20,7 @@ const FILES = [
   "assets/js/historico.js",
   "assets/js/main.js",
   "assets/js/metas.js",
+  "assets/js/perfil-foto.js",
   "assets/js/treino.js",
   "assets/img/icons/icon-192.png",
   "assets/img/icons/icon-512.png",
