@@ -7,6 +7,7 @@ require_once dirname(__DIR__) . '/app/helpers/auth.php';
 require_once dirname(__DIR__) . '/app/helpers/csrf.php';
 require_once dirname(__DIR__) . '/app/models/Usuario.php';
 require_once dirname(__DIR__) . '/app/controllers/AuthController.php';
+require_once dirname(__DIR__) . '/app/controllers/DashboardController.php';
 require_once dirname(__DIR__) . '/app/models/Ficha.php';
 require_once dirname(__DIR__) . '/app/models/FichaExercicio.php';
 require_once dirname(__DIR__) . '/app/models/Exercicio.php';
@@ -80,9 +81,7 @@ try {
         case 'historico-detalhes': (new HistoricoController())->details(); break;
         case 'historico-editar': (new HistoricoController())->edit(); break;
         case 'historico-salvar': (new HistoricoController())->save(); break;
-        case 'dashboard':
-            requireLogin();
-            require dirname(__DIR__) . '/app/views/dashboard/index.php'; break;
+        case 'dashboard': (new DashboardController())->index(); break;
         default:
             http_response_code(404);
             require dirname(__DIR__) . '/app/views/auth/404.php';

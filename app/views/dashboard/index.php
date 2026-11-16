@@ -1,12 +1,81 @@
-<?php $pageTitle='Início'; $pageDescription='Seu espaço de treinos.'; require dirname(__DIR__) . '/layouts/header.php'; ?>
-<p class="notice" role="status">Olá, <?= e((string)($_SESSION['usuario_nome'] ?? 'atleta')) ?>! Você entrou com sucesso.</p>
-<p><a href="<?= e(routeUrl('fichas')) ?>" class="button-link">Gerenciar minhas fichas</a></p>
-<p><a href="<?= e(routeUrl('treinar')) ?>" class="button-link">Iniciar ou continuar treino</a></p>
-<p><a href="<?= e(routeUrl('biblioteca')) ?>" class="button-link">Abrir Biblioteca de exercícios</a></p>
-<p><a href="<?= e(routeUrl('historico')) ?>" class="button-link">Ver Histórico de treinos</a></p>
-<p class="muted">O Dashboard completo será implementado nos próximos módulos.</p>
-<form method="post" action="<?= e(routeUrl('logout')) ?>">
-  <input type="hidden" name="_csrf" value="<?= e(csrfToken()) ?>">
-  <button type="submit" class="secondary">Sair da conta</button>
-</form>
-<?php require dirname(__DIR__) . '/layouts/footer.php'; ?>
+<?php
+$pageTitle = 'Início';
+$firstName = trim(explode(' ', trim((string) ($_SESSION['usuario_nome'] ?? 'Atleta')))[0]);
+$duration = static function (int $seconds): string {
+    $minutes = intdiv(max(0, $seconds), 60);
+    return $minutes >= 60 ? intdiv($minutes, 60) . 'h ' . ($minutes % 60) . 'min' : $minutes . ' min';
+};
+?><!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1010">
+<meta name="color-scheme" content="dark">
+<title>Início | GymProgress</title>
+<link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+<header class="dash-topbar">
+  <a class="dash-brand" href="<?= e(routeUrl('dashboard')) ?>"><span class="dash-logo">G</span><span>GymProgress</span></a>
+  <form method="post" action="<?= e(routeUrl('logout')) ?>">
+    <input type="hidden" name="_csrf" value="<?= e(csrfToken()) ?>">
+    <button class="dash-logout" type="submit">Sair</button>
+  </form>
+</header>
+<main class="dashboard-screen">
+  <?php if ($notice): ?><p class="dash-notice" role="status"><?= e($notice) ?></p><?php endif; ?>
+  <section class="dash-welcome" aria-label="Boas-vindas">
+    <p class="dash-eyebrow">SEU PAINEL DE TREINOS</p>
+    <h1>Olá, <?= e($firstName ?: 'Atleta') ?>!</h1>
+    <p>Acompanhe sua constância e continue evoluindo, um treino de cada vez.</p>
+    <a class="dash-button dash-primary" href="<?= e(routeUrl('treinar')) ?>">Iniciar treino <span aria-hidden="true">↗</span></a>
+  </section>
+
+  <?php if ($active): ?>
+  <section class="dash-active" aria-label="Treino em andamento">
+    <div><span class="dash-state"><span class="dash-state-dot"></span> EM ANDAMENTO</span>
+      <h2><?= e((string) $active['nome_ficha_snapshot']) ?></h2>
+      <p>Iniciado em <?= e($displayDate($active['iniciada_em'])) ?></p>
+    </div>
+    <a class="dash-button dash-continue" href="<?= e(routeUrl('treinar-andamento') . '&id=' . (int) $active['id']) ?>">Continuar treino <span aria-hidden="true">→</span></a>
+  </section>
+  <?php endif; ?>
+
+  <section class="dash-section" aria-labelledby="dash-frequencia">
+    <div class="dash-section-title"><h2 id="dash-frequencia">Sua frequência</h2><span>Treinos finalizados</span></div>
+    <div class="dash-stat-grid">
+      <article class="dash-stat"><span class="dash-stat-icon" aria-hidden="true">◫</span><strong><?= (int) $counts['semana'] ?></strong><span>Esta semana</span><small>Desde segunda-feira</small></article>
+      <article class="dash-stat"><span class="dash-stat-icon" aria-hidden="true">▦</span><strong><?= (int) $counts['mes'] ?></strong><span>Este mês</span><small><?= e($today->format('m/Y')) ?></small></article>
+    </div>
+  </section>
+
+  <section class="dash-section" aria-labelledby="dash-ultimo">
+    <div class="dash-section-title"><h2 id="dash-ultimo">Último treino</h2><a href="<?= e(routeUrl('historico')) ?>">Ver Histórico <span aria-hidden="true">→</span></a></div>
+    <?php if ($latest): ?>
+    <article class="dash-latest">
+      <span class="dash-complete">● FINALIZADO</span>
+      <h3><?= e((string) $latest['nome_ficha_snapshot']) ?></h3>
+      <p><?= e($displayDate($latest['finalizada_em'])) ?></p>
+      <div class="dash-latest-metrics">
+        <div><strong><?= e($duration((int) ($latest['duracao_segundos'] ?? 0))) ?></strong><span>Duração</span></div>
+        <div><strong><?= (int) $latest['series_concluidas'] ?></strong><span>Séries concluídas</span></div>
+      </div>
+      <a class="dash-detail" href="<?= e(routeUrl('historico-detalhes') . '&id=' . (int) $latest['id']) ?>">Ver detalhes do treino <span aria-hidden="true">→</span></a>
+    </article>
+    <?php else: ?>
+    <div class="dash-empty"><span aria-hidden="true">◉</span><h3>Seu histórico começa aqui</h3>
+      <p>Finalize seu primeiro treino para acompanhar seu progresso neste painel.</p></div>
+    <?php endif; ?>
+  </section>
+  <p class="dash-footer-note">Os indicadores consideram apenas treinos finalizados.</p>
+</main>
+<nav class="dash-bottom-nav" aria-label="Navegação principal">
+  <a href="<?= e(routeUrl('dashboard')) ?>" aria-current="page"><span aria-hidden="true">⌂</span><small>Início</small></a>
+  <a href="<?= e(routeUrl('fichas')) ?>"><span aria-hidden="true">▤</span><small>Fichas</small></a>
+  <a href="<?= e(routeUrl('treinar')) ?>"><span aria-hidden="true">◉</span><small>Treinar</small></a>
+  <a href="<?= e(routeUrl('biblioteca')) ?>"><span aria-hidden="true">▥</span><small>Biblioteca</small></a>
+  <span class="dash-nav-disabled" title="Perfil em desenvolvimento"><span aria-hidden="true">♙</span><small>Perfil</small></span>
+</nav>
+</body>
+</html>
