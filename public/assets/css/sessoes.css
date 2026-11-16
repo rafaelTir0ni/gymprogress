@@ -1,1 +1,19 @@
 .workout-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:18px}.workout-heading .button{white-space:nowrap}.exercise-dots{display:flex;gap:10px;overflow:auto;padding:7px 0 22px}.dot{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:50%;background:#203226;color:#c8e2d1;border:1px solid #46624d;font-weight:750}.dot[aria-current]{border:2px solid #00d87a;box-shadow:0 0 0 2px #154a2e}.dot.concluido,.dot.concluido_antecipadamente{background:#00693b;color:white}.dot.parcialmente_realizado{background:#5b4b16;color:white}.graph-button{flex-shrink:0}.graph-panel{border-top:1px solid #334a3b;margin-top:18px;padding-top:15px}.graph-panel canvas{display:block;width:100%;height:auto;max-width:620px}.set-card{margin-bottom:12px}.set-row{display:flex;align-items:center;gap:10px;justify-content:space-between;margin-bottom:10px}.set-card .inline-actions{margin-top:12px}.full{display:block;width:100%;margin-top:12px}.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}.stat-grid .panel{display:grid;gap:8px}.stat-grid strong{font-size:22px;color:#84efb5}.stat-grid span{font-size:12px;color:#b1c6b7}.summary-line{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:14px 0;border-bottom:1px solid #304637}.summary-line p{margin:5px 0}.summary-line span{font-size:12px;flex-shrink:0;color:#b4c7bb}.workout-active{border-color:#00d87a}@media(max-width:520px){.workout-heading{flex-wrap:wrap}.workout-heading h2{font-size:18px}.set-card .inline-actions button{padding:10px}.stat-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* Refinamento visual v1 • Treinar: controles com alvos de toque confortáveis. */
+.exercise-dots { gap: 11px; scrollbar-width: thin; scrollbar-color: #385b44 transparent; }
+.exercise-dots .dot { flex-basis: 46px; height: 46px; border-radius: 15px; font-size: 15px; }
+.exercise-dots .dot[aria-current] { border: 2px solid #00d87a; box-shadow: 0 0 0 3px #00d87a26; }
+.set-card { border-color: #344d3b; }
+.set-row strong { font-size: 15px; }
+.set-card .form-row input { min-height: 50px; font-size: 16px; font-variant-numeric: tabular-nums; }
+.set-card .inline-actions button { min-height: 46px; }
+.graph-button { min-height: 44px; }
+@media(max-width:520px){
+  .workout-heading { gap: 12px; }
+  .exercise-dots { padding-bottom: 18px; }
+  .set-card .inline-actions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .set-card .inline-actions button { width: 100%; padding: 12px 8px; }
+  .set-card .inline-actions button[name='acao'][value='desmarcar'] { grid-column: 1/-1; }
+  .workout-heading .graph-button { white-space: normal; }
+}
