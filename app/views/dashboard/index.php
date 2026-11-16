@@ -26,6 +26,26 @@ $duration = static function (int $seconds): string {
 </header>
 <main class="dashboard-screen">
   <?php if ($notice): ?><p class="dash-notice" role="status"><?= e($notice) ?></p><?php endif; ?>
+  <?php if ($achievementNotice): ?>
+  <section class="dash-notice" role="status" aria-label="Nova conquista">
+    <strong>Nova conquista: <?= e($achievementNotice['nome']) ?></strong>
+    <p><?= e($achievementNotice['descricao']) ?></p>
+    <div class="meta-banner-actions">
+      <form method="post" action="<?= e(routeUrl('metas-aviso')) ?>">
+        <input type="hidden" name="_csrf" value="<?= e(csrfToken()) ?>">
+        <input type="hidden" name="id" value="<?= (int)$achievementNotice['id'] ?>">
+        <input type="hidden" name="acao" value="ver">
+        <button type="submit">Ver minhas metas →</button>
+      </form>
+      <form method="post" action="<?= e(routeUrl('metas-aviso')) ?>">
+        <input type="hidden" name="_csrf" value="<?= e(csrfToken()) ?>">
+        <input type="hidden" name="id" value="<?= (int)$achievementNotice['id'] ?>">
+        <input type="hidden" name="acao" value="dispensar">
+        <button type="submit">Dispensar</button>
+      </form>
+    </div>
+  </section>
+  <?php endif; ?>
   <section class="dash-welcome" aria-label="Boas-vindas">
     <p class="dash-eyebrow">SEU PAINEL DE TREINOS</p>
     <h1>Olá, <?= e($firstName ?: 'Atleta') ?>!</h1>

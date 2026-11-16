@@ -19,6 +19,13 @@ require_once dirname(__DIR__) . '/app/models/HistoricoAlteracao.php';
 require_once dirname(__DIR__) . '/app/services/HistoricoService.php';
 require_once dirname(__DIR__) . '/app/controllers/HistoricoController.php';
 require_once dirname(__DIR__) . '/app/controllers/PerfilController.php';
+require_once dirname(__DIR__) . '/app/models/Meta.php';
+require_once dirname(__DIR__) . '/app/models/Conquista.php';
+require_once dirname(__DIR__) . '/app/models/UsuarioConquista.php';
+require_once dirname(__DIR__) . '/app/services/EstatisticaService.php';
+require_once dirname(__DIR__) . '/app/services/MetaService.php';
+require_once dirname(__DIR__) . '/app/services/ConquistaService.php';
+require_once dirname(__DIR__) . '/app/controllers/MetaController.php';
 
 // Em produção use HTTPS; em ambiente local o cookie Secure precisa acompanhar a conexão.
 $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
@@ -83,6 +90,12 @@ try {
         case 'historico-editar': (new HistoricoController())->edit(); break;
         case 'historico-salvar': (new HistoricoController())->save(); break;
         case 'dashboard': (new DashboardController())->index(); break;
+        case 'metas': (new MetaController())->index(); break;
+        case 'metas-criar': (new MetaController())->create(); break;
+        case 'metas-editar': (new MetaController())->edit(); break;
+        case 'metas-acao': (new MetaController())->action(); break;
+        case 'metas-conquistas': (new MetaController())->achievements(); break;
+        case 'metas-aviso': (new MetaController())->notice(); break;
         case 'perfil': (new PerfilController())->index(); break;
         case 'perfil-editar': (new PerfilController())->edit(); break;
         case 'perfil-seguranca': (new PerfilController())->security(); break;

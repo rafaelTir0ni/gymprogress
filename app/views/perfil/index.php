@@ -7,7 +7,7 @@
 <a href="<?= e(routeUrl('perfil-seguranca')) ?>">Alterar senha <span aria-hidden="true">›</span></a>
 <a href="<?= e(routeUrl('perfil-configuracoes')) ?>">Configurações do aplicativo <span aria-hidden="true">›</span></a>
 <a href="<?= e(routeUrl('historico')) ?>">Histórico de treinos <span aria-hidden="true">›</span></a>
-<div class="perfil-pending">Metas e conquistas <small>Em desenvolvimento</small></div>
+<a href="<?= e(routeUrl('metas')) ?>">Metas e conquistas <span aria-hidden="true">›</span></a>
 </section>
 <form action="<?= e(routeUrl('logout')) ?>" method="post" class="perfil-logout"><input type="hidden" name="_csrf" value="<?= e(csrfToken()) ?>"><button type="submit">Sair da conta</button></form>
 <?php require __DIR__ . '/_bottom.php'; ?>

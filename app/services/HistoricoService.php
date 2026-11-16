@@ -126,6 +126,7 @@ final class HistoricoService
             }
             $after=self::snapshot($sessionId);
             HistoricoAlteracao::record($sessionId,$userId,$before,$after);
+            ConquistaService::sync($userId);
             db()->commit();
         }catch(Throwable $error){if(db()->inTransaction())db()->rollBack();throw $error;}
     }

@@ -47,6 +47,8 @@ final class DashboardController
                     ->setTimezone($timezone)->format('d/m/Y H:i');
             } catch (Exception $exception) { return '—'; }
         };
+        ConquistaService::sync($uid);
+        $achievementNotice = UsuarioConquista::pending($uid);
         $notice = takeFlash();
         require dirname(__DIR__) . '/views/dashboard/index.php';
     }

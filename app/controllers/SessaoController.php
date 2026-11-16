@@ -167,6 +167,7 @@ final class SessaoController
             if(!(int)$counts['feitas'])throw new DomainException('Conclua ao menos uma série. Você pode continuar ou descartar a sessão.');
             db()->prepare("UPDATE sessoes SET status='finalizada', finalizada_em=UTC_TIMESTAMP(), duracao_segundos=TIMESTAMPDIFF(SECOND,iniciada_em,UTC_TIMESTAMP()) WHERE id=? AND usuario_id=? AND status='em_andamento'")
                 ->execute([$sid,currentUserId()]);
+            ConquistaService::sync(currentUserId());
         });flash('Sessão finalizada! Os registros já estão disponíveis para o Histórico.');}
         catch(DomainException $e){flash($e->getMessage());$this->redirect('treinar-resumo',['id'=>$sid]);}
         $this->redirect('treinar-resumo',['id'=>$sid]);

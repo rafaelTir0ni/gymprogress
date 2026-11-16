@@ -82,3 +82,11 @@ A partir desta revisão, `database/schema.sql` cria automaticamente o banco `gym
 - Atualização de dados protegida com autenticação, CSRF e validação no servidor.
 - Não foi necessário alterar o `schema.sql`; continua sendo usado apenas `gymprogress_teste`.
 - A revogação de sessões abertas em outros dispositivos ainda não está implementada.
+
+
+## Metas e Conquistas v1 (implementado em código; testes no Laragon pendentes)
+
+- Metas personalizadas, estados e prorrogação; conquistas automáticas e avisos no Dashboard.
+- Recalcula ao finalizar treinos, corrigir histórico e acessar Dashboard/Metas.
+- Usa as 12 tabelas do esquema existente e somente `gymprogress_teste`.
+- Consulte `docs/metas-implementacao.md` para limites e testes.
