@@ -14,6 +14,7 @@ $duration = static function (int $seconds): string {
 <meta name="color-scheme" content="dark">
 <title>Início | GymProgress</title>
 <link rel="stylesheet" href="assets/css/dashboard.css">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <header class="dash-topbar">
@@ -70,12 +71,6 @@ $duration = static function (int $seconds): string {
   </section>
   <p class="dash-footer-note">Os indicadores consideram apenas treinos finalizados.</p>
 </main>
-<nav class="dash-bottom-nav" aria-label="Navegação principal">
-  <a href="<?= e(routeUrl('dashboard')) ?>" aria-current="page"><span aria-hidden="true">⌂</span><small>Início</small></a>
-  <a href="<?= e(routeUrl('fichas')) ?>"><span aria-hidden="true">▤</span><small>Fichas</small></a>
-  <a href="<?= e(routeUrl('treinar')) ?>"><span aria-hidden="true">◉</span><small>Treinar</small></a>
-  <a href="<?= e(routeUrl('biblioteca')) ?>"><span aria-hidden="true">▥</span><small>Biblioteca</small></a>
-  <span class="dash-nav-disabled" title="Perfil em desenvolvimento"><span aria-hidden="true">♙</span><small>Perfil</small></span>
-</nav>
+<?php require dirname(__DIR__) . '/layouts/navbar.php'; ?>
 </body>
 </html>

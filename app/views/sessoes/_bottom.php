@@ -1,1 +1,3 @@
-</main><nav class="bottom-nav" aria-label="Navegação principal"><a href="<?= e(routeUrl('dashboard')) ?>">Início</a><a href="<?= e(routeUrl('fichas')) ?>">Fichas</a><a href="<?= e(routeUrl('treinar')) ?>" aria-current="page">Treinar</a><a href="<?= e(routeUrl('biblioteca')) ?>">Biblioteca</a><span class="disabled">Perfil</span></nav></body></html>
+</main>
+<?php require dirname(__DIR__) . '/layouts/navbar.php'; ?>
+</body></html>

@@ -18,6 +18,7 @@ require_once dirname(__DIR__) . '/app/controllers/SessaoController.php';
 require_once dirname(__DIR__) . '/app/models/HistoricoAlteracao.php';
 require_once dirname(__DIR__) . '/app/services/HistoricoService.php';
 require_once dirname(__DIR__) . '/app/controllers/HistoricoController.php';
+require_once dirname(__DIR__) . '/app/controllers/PerfilController.php';
 
 // Em produção use HTTPS; em ambiente local o cookie Secure precisa acompanhar a conexão.
 $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
@@ -82,6 +83,10 @@ try {
         case 'historico-editar': (new HistoricoController())->edit(); break;
         case 'historico-salvar': (new HistoricoController())->save(); break;
         case 'dashboard': (new DashboardController())->index(); break;
+        case 'perfil': (new PerfilController())->index(); break;
+        case 'perfil-editar': (new PerfilController())->edit(); break;
+        case 'perfil-seguranca': (new PerfilController())->security(); break;
+        case 'perfil-configuracoes': (new PerfilController())->settings(); break;
         default:
             http_response_code(404);
             require dirname(__DIR__) . '/app/views/auth/404.php';
