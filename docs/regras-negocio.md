@@ -505,3 +505,30 @@ PWA mobile-first em dark mode (preto/grafite, destaques verde-esmeralda), com se
 | 13/11/2026 | 1.3 | Aditivo Metas v1.0 aprovado: RN-M01–RN-M36 e CT-M01–CT-M07. Total: 189 RN e 49 CT. |
 
 > **Critério editorial:** somente funcionalidades explicitamente aprovadas são incorporadas como regras definitivas. Funcionalidades em discussão ficam fora do corpo de regras aprovadas até validação do usuário.
+
+
+---
+
+## Aditivo proposto — Perfil: Foto de perfil e enquadramento (PENDENTE DE APROVAÇÃO)
+
+> Estas regras descrevem uma funcionalidade já implementada e testada no projeto, mas **ainda não homologada como ampliação das regras oficiais**. Mantêm-se intactas as RN-P01 a RN-P08 e CT-P01 a CT-P04.
+
+| Código | Regra de negócio proposta |
+|---|---|
+| RN-P09 | O usuário autenticado poderá adicionar uma foto ao próprio perfil, selecionando uma imagem do dispositivo. |
+| RN-P10 | O usuário poderá substituir a foto existente ou removê-la a qualquer momento. |
+| RN-P11 | Ao selecionar a foto, o aplicativo oferecerá prévia e ajuste de enquadramento, com arraste e zoom, antes da confirmação. |
+| RN-P12 | Cancelar o enquadramento não modificará a foto anteriormente salva. |
+| RN-P13 | Na ausência de foto, o aplicativo exibirá um avatar padrão com a inicial do nome do usuário. |
+| RN-P14 | A foto será exibida em dimensões apropriadas no Perfil e no cabeçalho; tocar no avatar do cabeçalho abrirá o Perfil. |
+| RN-P15 | O envio aceitará apenas imagens em formatos suportados e dentro dos limites de tamanho e dimensões definidos para segurança. |
+| RN-P16 | Somente o usuário autenticado poderá consultar, alterar ou remover sua própria foto de perfil. |
+
+| Código | Controle técnico proposto |
+|---|---|
+| CT-P05 | Verificar autenticação e CSRF em operações de envio, substituição e remoção; impedir acesso a fotos de outros usuários. |
+| CT-P06 | Validar tipo real, tamanho e dimensões da imagem; reprocessar no servidor por GD e salvar com nome interno seguro fora de `public`. |
+| CT-P07 | Gerar o recorte quadrado em 512 × 512 pixels para envio e exibi-lo circularmente; limitar o arquivo final a 3 MB e aplicar limites de processamento no navegador. |
+| CT-P08 | Não armazenar fotos autenticadas nem respostas PHP personalizadas no cache estático do Service Worker; excluir arquivos antigos com segurança ao substituir/remover. |
+
+**Referências de implementação existentes:** `docs/foto-perfil-implementacao.md` e `docs/foto-perfil-enquadramento-v1-1.md`.

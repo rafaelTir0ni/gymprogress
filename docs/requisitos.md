@@ -2,7 +2,7 @@
 
 > **Versão:** 1.0 — **APROVADA DEFINITIVAMENTE**
 >
-> **Status:** **APROVADO** — 46 requisitos funcionais, 25 requisitos não funcionais e respectivos critérios de aceitação. As 153 regras de negócio e os 42 cuidados técnicos seguem aprovados e inalterados em `regras-negocio.md`.
+> **Status:** **APROVADO** — 46 requisitos funcionais, 25 requisitos não funcionais e respectivos critérios de aceitação. As 189 regras de negócio e os 49 controles técnicos aprovados estão consolidados em `regras-negocio.md` (incluindo o aditivo de Metas).
 
 ## 1. Objetivo e escopo
 
@@ -167,3 +167,25 @@ Esta especificação organiza requisitos verificáveis do GymProgress, aplicativ
 **Requisitos adicionais de qualidade a detalhar futuramente:** idempotência no processamento de conquistas, segurança/autorização por usuário, consistência do recálculo e persistência do estado de avisos.
 
 **Situação:** aditivo de regras de negócio **APROVADO**; RF/RNF adicionais de Metas **AINDA NÃO HOMOLOGADOS**. O conteúdo e a numeração de RF-01–RF-46 e RNF-01–RNF-25 permanecem preservados.
+
+
+---
+
+## Aditivo proposto — RF/RNF da Foto de Perfil (PENDENTE DE APROVAÇÃO)
+
+> Aditivo referente a funcionalidade implementada depois da homologação dos RF-01 a RF-46 e RNF-01 a RNF-25. A numeração abaixo é **provisória** e não altera as contagens oficiais até aprovação.
+
+| Código | Requisito funcional proposto |
+|---|---|
+| RF-47 | Permitir enviar, visualizar, substituir e remover a própria foto de perfil. |
+| RF-48 | Oferecer editor de enquadramento com prévia, arraste, zoom e ações de confirmar ou cancelar. |
+| RF-49 | Exibir a foto ou avatar padrão no Perfil e no cabeçalho, permitindo acessar o Perfil pelo avatar. |
+| RF-50 | Restringir visualização e modificação da foto ao usuário autenticado proprietário. |
+
+| Código | Requisito não funcional proposto |
+|---|---|
+| RNF-26 | Validar tipo real e limites de dimensão e tamanho das imagens; reprocessar os arquivos para um formato seguro no servidor. |
+| RNF-27 | Manter os avatares proporcionais, sem distorção nem quebra do layout nas telas mobile e desktop. |
+| RNF-28 | Armazenar as imagens fora do diretório público e impedir seu cache por mecanismos de armazenamento estático do PWA. |
+
+**Critérios de referência já implementados:** prévia com zoom de 1× a 3×; imagem final JPEG 512 × 512 px, até 3 MB; arquivo de origem até 12 MB e 16 megapixels no editor. Ver `docs/foto-perfil-enquadramento-v1-1.md`.
