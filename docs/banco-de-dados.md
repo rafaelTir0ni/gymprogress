@@ -2,8 +2,8 @@
 
 > **Versão:** 1.3 — **MODELAGEM APROVADA PARA TESTES (MySQL 8.4.3)**  
 > **Tecnologia confirmada:** MySQL 8.4.3 (Laragon), PHP com PDO, `utf8mb4`, InnoDB.  
-> **Documentos preservados:** 189 regras de negócio e 49 cuidados técnicos aprovados; 46 requisitos funcionais e 25 não funcionais aprovados. Requisitos adicionais de Metas ainda pendentes de homologação.  
-> **Esquema SQL executável disponível:** `database/schema.sql`, para utilização apenas em banco novo e vazio após seleção explícita da base no phpMyAdmin.
+> **Documentos oficiais em 18/11/2026:** 197 RN, 53 CT, 58 RF e 32 RNF aprovados, incluindo Foto de Perfil e os RF/RNF de Metas e Conquistas.  
+> **Esquema SQL executável disponível:** `database/schema.sql`, que cria e seleciona automaticamente `gymprogress_teste` para instalação inicial em ambiente de testes; não reimportar em banco populado.
 
 ## 1. Visão geral
 
@@ -380,9 +380,9 @@ gatilhos ou política mais restrita de permissões do banco.
 |---|---|
 | Descarte físico de sessão em andamento | **DECISÃO CONFIRMADA** |
 | 12 tabelas, tipos, FKs, índices e unicidades | **PROPOSTA PARA APROVAÇÃO** |
-| 189 RN e 49 CT | **APROVADOS, inalterados** |
-| 46 RF e 25 RNF | **APROVADOS, inalterados** |
-| RF/RNF adicionais de Metas | **PENDENTES** |
+| 197 RN e 53 CT | **APROVADOS** (homologação consolidada em 18/11/2026) |
+| 58 RF e 32 RNF | **APROVADOS** (incluindo os aditivos) |
+| RF/RNF adicionais de Metas | **HOMOLOGADOS em 18/11/2026** |
 | `database/schema.sql` | **AINDA NÃO IMPLEMENTADO** |
 
 
@@ -430,3 +430,8 @@ Até a conclusão dos testes de todos os módulos, o projeto usará **exclusivam
 ## Atualização do schema.sql
 
 A partir desta revisão, `database/schema.sql` cria automaticamente o banco `gymprogress_teste` e executa `USE gymprogress_teste`, facilitando a configuração do projeto em dispositivos diferentes durante a fase de desenvolvimento e testes.
+
+
+## Situação documental atual — 18/11/2026
+
+As fases de revisão anteriores foram preservadas como histórico. A instalação inicial usa `gymprogress_teste`. Para o recurso Foto de Perfil, a migração `database/migrations/20261116_add_profile_photo.sql` é aplicada somente quando a coluna ainda não existe. O inventário normativo atual é **197 RN, 53 CT, 58 RF e 32 RNF**.

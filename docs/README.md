@@ -6,8 +6,8 @@ Este índice é o ponto de entrada dos arquivos de `docs/`. O [README principal]
 
 ## Especificações oficiais
 
-- [Regras de negócio e controles técnicos](regras-negocio.md) — 189 RN e 49 CT aprovados; aditivo de foto de perfil proposto.
-- [Requisitos funcionais e não funcionais](requisitos.md) — 46 RF e 25 RNF aprovados; aditivos adicionais ainda pendentes.
+- [Regras de negócio e controles técnicos](regras-negocio.md) — 197 RN e 53 CT aprovados, incluindo Foto de Perfil.
+- [Requisitos funcionais e não funcionais](requisitos.md) — 58 RF e 32 RNF aprovados, incluindo Foto de Perfil e Metas/Conquistas.
 - [Modelagem e validação do banco](banco-de-dados.md) — MySQL 8.4.3, `gymprogress_teste` durante o desenvolvimento.
 - [Arquitetura](arquitetura.md) — MVC simplificado.
 - [Estrutura e pendências](estrutura-e-pendencias.md) — registro histórico; para estado corrente priorize README principal e CHANGELOG.
@@ -33,4 +33,4 @@ Este índice é o ponto de entrada dos arquivos de `docs/`. O [README principal]
 
 Consulte [VERSION](../VERSION) e [CHANGELOG.md](../CHANGELOG.md). O GymProgress utiliza versões pré-lançamento; `0.1.0-alpha.1` é o **primeiro marco documentado**, não uma reconstrução de tags históricas.
 
-**Importante:** não confundir arquivos de implementação com a aprovação formal dos requisitos. As regras da foto de perfil ainda estão em proposta, mesmo que o código já tenha sido testado; os RF/RNF adicionais de Metas ainda estão pendentes.
+**Homologação em 18/11/2026:** os aditivos da Foto de Perfil e dos RF/RNF de Metas e Conquistas estão aprovados. O texto integral está sincronizado com o README principal. Aprovação documental não equivale a teste automatizado completo.

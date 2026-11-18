@@ -2,6 +2,16 @@
 
 Este histórico usa marcos reais **documentados**; não recria versões retroativas nem pressupõe tags ou releases publicados no GitHub.
 
+## [Não lançado] — 2026-11-18
+
+### Documentação homologada
+- Homologados RN-P09–RN-P16 e CT-P05–CT-P08 para Foto de Perfil, preservando RN-P01–P08 e CT-P01–P04.
+- Homologados RF-47–RF-50 e RNF-26–RNF-28 para Foto de Perfil.
+- Homologados RF-51–RF-58 e RNF-29–RNF-32 para Metas e Conquistas, preservando RN-M01–M36 e CT-M01–M07.
+- README e `docs/` sincronizados integralmente; contagens oficiais: **197 RN, 53 CT, 58 RF e 32 RNF**.
+- Corrigida a contagem antiga de 153 RN/42 CT no quadro de aprovação de requisitos.
+- **Somente documentação:** nenhum arquivo de código, estrutura SQL ou comportamento do aplicativo foi alterado neste marco.
+
 ## [0.1.0-alpha.1] — 2026-11-16
 
 ### Implementado antes do primeiro marco documentado
@@ -19,7 +29,7 @@ Este histórico usa marcos reais **documentados**; não recria versões retroati
 ### Limitações conhecidas
 - Recuperação de senha por e-mail ainda não implementada.
 - Sincronização offline de treinos não implementada.
-- RF/RNF adicionais de Metas e aditivo da Foto de Perfil ainda sem homologação formal.
+- Aditivos de Metas e Foto de Perfil homologados documentalmente em 18/11/2026 (ver seção Não lançado).
 - Testes automatizados de fluxos críticos, revisão de segurança, backup/restauração e medições de desempenho pendentes.
 - Refinamento visual das demais telas ainda em andamento.
 

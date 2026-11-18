@@ -3,7 +3,7 @@
 > **Documento de requisitos aprovados**  
 > Aplicação: GymProgress (PWA mobile-first)  
 > Estado: documentação incremental por funcionalidade.  
-> Última atualização: 13/11/2026.
+> Última atualização: 18/11/2026.
 
 ## Controle de aprovação
 
@@ -15,6 +15,7 @@
 | Login e Cadastro | 1.0 | **Aprovada** | RN-A01 a RN-A16 e CT-A01 a CT-A07 |
 | Dashboard | 1.0 | **Aprovada** | RN-D01 a RN-D12 e CT-D01 a CT-D05 |
 | Perfil | 1.0 | **Aprovada** | RN-P01 a RN-P08 e CT-P01 a CT-P04 |
+| Perfil — Foto de perfil | 1.1 (aditivo) | **Aprovada em 18/11/2026** | RN-P09 a RN-P16 e CT-P05 a CT-P08 |
 | Histórico | 1.0 | **Aprovada** | RN-H01 a RN-H15 e CT-H01 a CT-H06 |
 | PWA | 1.0 | **Aprovada** | RN-W01 a RN-W12 e CT-W01 a CT-W06 |
 | Metas | 1.0 | **Aprovada** | RN-M01 a RN-M36 e CT-M01 a CT-M07 |
@@ -509,11 +510,11 @@ PWA mobile-first em dark mode (preto/grafite, destaques verde-esmeralda), com se
 
 ---
 
-## Aditivo proposto — Perfil: Foto de perfil e enquadramento (PENDENTE DE APROVAÇÃO)
+## Aditivo homologado — Perfil: Foto de perfil e enquadramento (APROVADO em 18/11/2026)
 
-> Estas regras descrevem uma funcionalidade já implementada e testada no projeto, mas **ainda não homologada como ampliação das regras oficiais**. Mantêm-se intactas as RN-P01 a RN-P08 e CT-P01 a CT-P04.
+> **Homologado em 18/11/2026:** RN-P09 a RN-P16 e CT-P05 a CT-P08. Aditivo referente a funcionalidade já implementada e validada manualmente. Mantêm-se intactas as RN-P01 a RN-P08 e CT-P01 a CT-P04.
 
-| Código | Regra de negócio proposta |
+| Código | Regra de negócio aprovada |
 |---|---|
 | RN-P09 | O usuário autenticado poderá adicionar uma foto ao próprio perfil, selecionando uma imagem do dispositivo. |
 | RN-P10 | O usuário poderá substituir a foto existente ou removê-la a qualquer momento. |
@@ -524,7 +525,7 @@ PWA mobile-first em dark mode (preto/grafite, destaques verde-esmeralda), com se
 | RN-P15 | O envio aceitará apenas imagens em formatos suportados e dentro dos limites de tamanho e dimensões definidos para segurança. |
 | RN-P16 | Somente o usuário autenticado poderá consultar, alterar ou remover sua própria foto de perfil. |
 
-| Código | Controle técnico proposto |
+| Código | Controle técnico aprovado |
 |---|---|
 | CT-P05 | Verificar autenticação e CSRF em operações de envio, substituição e remoção; impedir acesso a fotos de outros usuários. |
 | CT-P06 | Validar tipo real, tamanho e dimensões da imagem; reprocessar no servidor por GD e salvar com nome interno seguro fora de `public`. |
@@ -532,3 +533,5 @@ PWA mobile-first em dark mode (preto/grafite, destaques verde-esmeralda), com se
 | CT-P08 | Não armazenar fotos autenticadas nem respostas PHP personalizadas no cache estático do Service Worker; excluir arquivos antigos com segurança ao substituir/remover. |
 
 **Referências de implementação existentes:** `docs/foto-perfil-implementacao.md` e `docs/foto-perfil-enquadramento-v1-1.md`.
+
+**Consolidação após homologação (18/11/2026):** 197 RN e 53 CT aprovados no total (189 RN + 8 RN; 49 CT + 4 CT).

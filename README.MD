@@ -12,7 +12,7 @@
 
 > **Versão atual documentada:** `v0.1.0-alpha.1` — *pré-lançamento, uso pessoal*. **Próximo marco proposto:** `v0.1.0-alpha.2` (refinamentos de interface e documentação). A numeração é um marco documental; não implica tag ou release publicado no GitHub.
 >
-> **Estado em 16/11/2026:** os módulos principais passaram por testes funcionais manuais relatados no Laragon; o PWA foi instalado no Windows e no Android, acessado por HTTPS privado via Tailscale. Isso **não** equivale a homologação de segurança e cobertura automatizada completas.
+> **Estado documental em 18/11/2026:** os módulos principais passaram por testes funcionais manuais relatados no Laragon; o PWA foi instalado no Windows e no Android, acessado por HTTPS privado via Tailscale. Isso **não** equivale a homologação de segurança e cobertura automatizada completas.
 
 ## Sumário
 
@@ -144,8 +144,6 @@ O índice navegável de todos os documentos fica em [`docs/README.md`](docs/READ
 ## Pendências e limitações
 
 - **RF-04:** recuperação/redefinição de senha por e-mail não implementada; adiada por se tratar de uso pessoal.
-- **Metas:** as 36 RN e 7 CT específicas foram aprovadas, mas ainda faltam RF/RNF adicionais formalmente homologados.
-- **Foto de perfil:** foi implementada e testada, porém RN-P09–P16, CT-P05–P08, RF-47–RF-50 e RNF-26–RNF-28 continuam **propostos**, sem aprovação formal.
 - **PWA:** sem registro de treinos offline ou sincronização de pendências.
 - **Qualidade:** testes automatizados de fluxos críticos, revisão de segurança, backup/restauração e mensuração objetiva do desempenho (meta de 3 segundos) ainda incompletos.
 - **Visual:** refinamento estético e de usabilidade ainda em andamento.
@@ -154,14 +152,14 @@ O índice navegável de todos os documentos fica em [`docs/README.md`](docs/READ
 
 ## Regras de negócio e controles técnicos — texto integral
 
-> Reprodução fiel de [`docs/regras-negocio.md`](docs/regras-negocio.md). **Aditivos propostos são identificados como pendentes, não são aprovação implícita.**
+> Reprodução integral e sincronizada de [`docs/regras-negocio.md`](docs/regras-negocio.md), incluindo os aditivos homologados.
 
 ## GymProgress — Regras de Negócio
 
 > **Documento de requisitos aprovados**  
 > Aplicação: GymProgress (PWA mobile-first)  
 > Estado: documentação incremental por funcionalidade.  
-> Última atualização: 13/11/2026.
+> Última atualização: 18/11/2026.
 
 ### Controle de aprovação
 
@@ -173,6 +171,7 @@ O índice navegável de todos os documentos fica em [`docs/README.md`](docs/READ
 | Login e Cadastro | 1.0 | **Aprovada** | RN-A01 a RN-A16 e CT-A01 a CT-A07 |
 | Dashboard | 1.0 | **Aprovada** | RN-D01 a RN-D12 e CT-D01 a CT-D05 |
 | Perfil | 1.0 | **Aprovada** | RN-P01 a RN-P08 e CT-P01 a CT-P04 |
+| Perfil — Foto de perfil | 1.1 (aditivo) | **Aprovada em 18/11/2026** | RN-P09 a RN-P16 e CT-P05 a CT-P08 |
 | Histórico | 1.0 | **Aprovada** | RN-H01 a RN-H15 e CT-H01 a CT-H06 |
 | PWA | 1.0 | **Aprovada** | RN-W01 a RN-W12 e CT-W01 a CT-W06 |
 | Metas | 1.0 | **Aprovada** | RN-M01 a RN-M36 e CT-M01 a CT-M07 |
@@ -667,11 +666,11 @@ PWA mobile-first em dark mode (preto/grafite, destaques verde-esmeralda), com se
 
 ---
 
-### Aditivo proposto — Perfil: Foto de perfil e enquadramento (PENDENTE DE APROVAÇÃO)
+### Aditivo homologado — Perfil: Foto de perfil e enquadramento (APROVADO em 18/11/2026)
 
-> Estas regras descrevem uma funcionalidade já implementada e testada no projeto, mas **ainda não homologada como ampliação das regras oficiais**. Mantêm-se intactas as RN-P01 a RN-P08 e CT-P01 a CT-P04.
+> **Homologado em 18/11/2026:** RN-P09 a RN-P16 e CT-P05 a CT-P08. Aditivo referente a funcionalidade já implementada e validada manualmente. Mantêm-se intactas as RN-P01 a RN-P08 e CT-P01 a CT-P04.
 
-| Código | Regra de negócio proposta |
+| Código | Regra de negócio aprovada |
 |---|---|
 | RN-P09 | O usuário autenticado poderá adicionar uma foto ao próprio perfil, selecionando uma imagem do dispositivo. |
 | RN-P10 | O usuário poderá substituir a foto existente ou removê-la a qualquer momento. |
@@ -682,7 +681,7 @@ PWA mobile-first em dark mode (preto/grafite, destaques verde-esmeralda), com se
 | RN-P15 | O envio aceitará apenas imagens em formatos suportados e dentro dos limites de tamanho e dimensões definidos para segurança. |
 | RN-P16 | Somente o usuário autenticado poderá consultar, alterar ou remover sua própria foto de perfil. |
 
-| Código | Controle técnico proposto |
+| Código | Controle técnico aprovado |
 |---|---|
 | CT-P05 | Verificar autenticação e CSRF em operações de envio, substituição e remoção; impedir acesso a fotos de outros usuários. |
 | CT-P06 | Validar tipo real, tamanho e dimensões da imagem; reprocessar no servidor por GD e salvar com nome interno seguro fora de `public`. |
@@ -691,17 +690,17 @@ PWA mobile-first em dark mode (preto/grafite, destaques verde-esmeralda), com se
 
 **Referências de implementação existentes:** `docs/foto-perfil-implementacao.md` e `docs/foto-perfil-enquadramento-v1-1.md`.
 
----
+**Consolidação após homologação (18/11/2026):** 197 RN e 53 CT aprovados no total (189 RN + 8 RN; 49 CT + 4 CT).
 
 ## Requisitos funcionais e não funcionais — texto integral
 
-> Reprodução fiel de [`docs/requisitos.md`](docs/requisitos.md).
+> Reprodução integral e sincronizada de [`docs/requisitos.md`](docs/requisitos.md), incluindo os aditivos homologados.
 
 ## GymProgress — Especificação de Requisitos
 
 > **Versão:** 1.0 — **APROVADA DEFINITIVAMENTE**
 >
-> **Status:** **APROVADO** — 46 requisitos funcionais, 25 requisitos não funcionais e respectivos critérios de aceitação. As 189 regras de negócio e os 49 controles técnicos aprovados estão consolidados em `regras-negocio.md` (incluindo o aditivo de Metas).
+> **Status consolidado em 18/11/2026:** **58 RF e 32 RNF aprovados** (46 RF e 25 RNF originais preservados + 12 RF e 7 RNF em aditivos). São **197 RN e 53 CT** aprovados no documento `regras-negocio.md`.
 
 ### 1. Objetivo e escopo
 
@@ -843,45 +842,55 @@ Esta especificação organiza requisitos verificáveis do GymProgress, aplicativ
 
 | Artefato | Estado |
 |---|---|
-| 153 regras de negócio e 42 cuidados técnicos | **APROVADOS**, inalterados |
-| 46 requisitos funcionais | **APROVADOS DEFINITIVAMENTE — v1.0** |
-| 25 requisitos não funcionais | **APROVADOS DEFINITIVAMENTE — v1.0** |
+| 197 regras de negócio e 53 controles técnicos | **APROVADOS** (base preservada e aditivo de Foto de Perfil em 18/11/2026) |
+| RF-01 a RF-46 | **APROVADOS DEFINITIVAMENTE — base v1.0, sem alterações** |
+| RNF-01 a RNF-25 | **APROVADOS DEFINITIVAMENTE — base v1.0, sem alterações** |
+| RF-47 a RF-50 e RNF-26 a RNF-28 | **APROVADOS — aditivo Foto de Perfil, 18/11/2026** |
+| RF-51 a RF-58 e RNF-29 a RNF-32 | **APROVADOS — aditivo Metas e Conquistas, 18/11/2026** |
 
 **Registro de aprovação:** usuário aprovou explicitamente em 13/11/2026 os 46 RF, os 25 RNF e os critérios de aceitação revisados. Alterações posteriores exigem nova aprovação. O arquivo `docs/regras-negocio.md` não foi modificado nesta homologação.
 
 
 ---
 
-### Aditivo de escopo — Metas v1.0 (regras de negócio aprovadas, RF/RNF adicionais pendentes)
+### Aditivo homologado — Metas e Conquistas (RF/RNF aprovados em 18/11/2026)
 
-**Aprovação do módulo:** RN-M01 a RN-M36 e CT-M01 a CT-M07 estão aprovados e constam em [`regras-negocio.md`](regras-negocio.md). Esta seção é **informativa** e não altera nem renumera os **46 RF** ou os **25 RNF** homologados acima.
+**Escopo:** RN-M01 a RN-M36 e CT-M01 a CT-M07 permanecem aprovados e inalterados em [`regras-negocio.md`](regras-negocio.md). Os RF/RNF complementares abaixo foram homologados em 18/11/2026, sem alterar RF-01 a RF-50 ou RNF-01 a RNF-28.
 
-**Funcionalidades a especificar em requisitos adicionais para futura aprovação:**
-- Acesso a **Perfil → Metas**; criação, edição, arquivamento, reativação e acompanhamento de metas personalizadas com **prazo opcional**.
-- Metas com data-limite não atingidas: estado **Prazo encerrado**, com progresso preservado e opção de prorrogar o prazo ou arquivar.
-- Conquistas automáticas baseadas em recordes pessoais/semanais, marcos de sessões e frequência, calculadas com dados válidos.
-- Aviso discreto de nova conquista no Dashboard, acessível e dispensável, sem repetição indevida.
-- Reavaliação de metas e conquistas quando houver correções de sessões finalizadas no Histórico.
+| Código | Requisito funcional aprovado |
+|---|---|
+| RF-51 | Permitir visualizar Metas e Conquistas pela página Perfil. |
+| RF-52 | Permitir criar e editar metas de carga, frequência semanal e sessões acumuladas, com prazo opcional. |
+| RF-53 | Permitir arquivar e reativar metas, preservando seu histórico e progresso. |
+| RF-54 | Apresentar o progresso e os estados das metas, incluindo Alcançada e Prazo encerrado, permitindo prorrogar prazos encerrados. |
+| RF-55 | Identificar automaticamente recordes pessoais, recordes semanais e conquistas de frequência e quantidade de treinos. |
+| RF-56 | Atualizar metas e conquistas quando um treino for finalizado ou corrigido no Histórico. |
+| RF-57 | Exibir avisos discretos de novas conquistas no Dashboard, permitindo visualizá-los e dispensá-los. |
+| RF-58 | Permitir consultar o histórico das conquistas, sem duplicar ocorrências já registradas. |
 
-**Requisitos adicionais de qualidade a detalhar futuramente:** idempotência no processamento de conquistas, segurança/autorização por usuário, consistência do recálculo e persistência do estado de avisos.
+| Código | Requisito não funcional aprovado |
+|---|---|
+| RNF-29 | Garantir consistência entre Metas, Histórico e gráficos após correções de treinos. |
+| RNF-30 | Garantir processamento idempotente das conquistas, evitando duplicações e notificações repetidas. |
+| RNF-31 | Restringir os dados e as operações de Metas e Conquistas ao usuário autenticado proprietário. |
+| RNF-32 | Garantir integridade transacional nas operações que atualizem conjuntamente resultados e estados de metas e conquistas. |
 
-**Situação:** aditivo de regras de negócio **APROVADO**; RF/RNF adicionais de Metas **AINDA NÃO HOMOLOGADOS**. O conteúdo e a numeração de RF-01–RF-46 e RNF-01–RNF-25 permanecem preservados.
-
+**Situação:** aditivo de Metas e Conquistas **APROVADO**. A homologação documental não substitui testes de segurança e integração. 
 
 ---
 
-### Aditivo proposto — RF/RNF da Foto de Perfil (PENDENTE DE APROVAÇÃO)
+### Aditivo homologado — RF/RNF da Foto de Perfil (APROVADO em 18/11/2026)
 
-> Aditivo referente a funcionalidade implementada depois da homologação dos RF-01 a RF-46 e RNF-01 a RNF-25. A numeração abaixo é **provisória** e não altera as contagens oficiais até aprovação.
+> **Homologado em 18/11/2026:** este aditivo complementa os RF-01 a RF-46 e RNF-01 a RNF-25, que permanecem inalterados.
 
-| Código | Requisito funcional proposto |
+| Código | Requisito funcional aprovado |
 |---|---|
 | RF-47 | Permitir enviar, visualizar, substituir e remover a própria foto de perfil. |
 | RF-48 | Oferecer editor de enquadramento com prévia, arraste, zoom e ações de confirmar ou cancelar. |
 | RF-49 | Exibir a foto ou avatar padrão no Perfil e no cabeçalho, permitindo acessar o Perfil pelo avatar. |
 | RF-50 | Restringir visualização e modificação da foto ao usuário autenticado proprietário. |
 
-| Código | Requisito não funcional proposto |
+| Código | Requisito não funcional aprovado |
 |---|---|
 | RNF-26 | Validar tipo real e limites de dimensão e tamanho das imagens; reprocessar os arquivos para um formato seguro no servidor. |
 | RNF-27 | Manter os avatares proporcionais, sem distorção nem quebra do layout nas telas mobile e desktop. |
@@ -889,7 +898,7 @@ Esta especificação organiza requisitos verificáveis do GymProgress, aplicativ
 
 **Critérios de referência já implementados:** prévia com zoom de 1× a 3×; imagem final JPEG 512 × 512 px, até 3 MB; arquivo de origem até 12 MB e 16 megapixels no editor. Ver `docs/foto-perfil-enquadramento-v1-1.md`.
 
----
+**Contagem consolidada homologada em 18/11/2026:** 58 RF e 32 RNF. Os requisitos originais RF-01 a RF-46 e RNF-01 a RNF-25 não foram renumerados nem reescritos.
 
 ## Política de atualização documental
 
@@ -902,4 +911,4 @@ Para evitar que novas implementações fiquem fora do README (como ocorreu inici
 5. Validar que os links funcionam, as contagens oficiais permanecem coerentes e o Git não incluirá `.env` ou fotos privadas.
 6. Associar o commit à entrega, informando testes executados e pendências restantes.
 
-**Contagens oficiais nesta versão:** **189 RN, 49 CT, 46 RF e 25 RNF**. Os aditivos de foto de perfil ainda não contam como aprovados; as 36 RN/7 CT de Metas já estão incluídas nos totais oficiais.
+**Contagens oficiais em 18/11/2026:** **197 RN, 53 CT, 58 RF e 32 RNF**. Foto de Perfil e RF/RNF complementares de Metas e Conquistas estão homologados.
