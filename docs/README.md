@@ -1,6 +1,6 @@
 # Documentação técnica — GymProgress
 
-**Versão documental:** `v0.1.0-alpha.1` · **Status:** pré-lançamento, uso pessoal
+**Versão documental:** `v0.1.0-alpha.2` · **Status:** pré-lançamento, uso pessoal
 
 Este índice é o ponto de entrada dos arquivos de `docs/`. O [README principal](../README.MD) apresenta a visão geral, o roadmap, o histórico e a **íntegra** das RN, CT, RF e RNF. Os documentos abaixo são as fontes de especificação e implementação: evite criar cópias divergentes.
 

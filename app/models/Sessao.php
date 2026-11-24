@@ -46,8 +46,7 @@ final class Sessao
 
     public static function counts(int $sid): array
     {
-        $st=db()->prepare("SELECT COUNT(*) total, COALESCE(SUM(concluida=1),0) feitas,
-            COALESCE(SUM(CASE WHEN concluida=1 AND carga_kg IS NOT NULL THEN carga_kg*repeticoes ELSE 0 END),0) volume
+        $st=db()->prepare("SELECT COUNT(*) total, COALESCE(SUM(concluida=1),0) feitas
             FROM series_realizadas sr JOIN sessao_exercicios se ON se.id=sr.sessao_exercicio_id WHERE se.sessao_id=?");
         $st->execute([$sid]);return $st->fetch();
     }

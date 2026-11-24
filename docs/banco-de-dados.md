@@ -127,7 +127,7 @@ O snapshot impede alterações retroativas após edição da ficha/exercício. A
 | `concluida_em` | DATETIME NULL | Horário, quando houver |
 | `criado_em`, `atualizado_em` | DATETIME | Auditoria |
 
-Séries ainda não realizadas não contam para o volume, recordes ou metas. Volume externo = Σ (`carga_kg` × `repeticoes`) apenas para séries concluídas com carga registrada. Carga vazia não equivale a carga zero. Séries extras devem preservar `origem`.
+Séries ainda não realizadas não contam para recordes ou metas. Carga vazia não equivale a carga zero. Séries extras devem preservar `origem`.
 
 ### 2.9 `historico_alteracoes`
 
@@ -260,7 +260,7 @@ ou MariaDB** e sua versão específica, pois a sintaxe de coluna gerada, `JSON`,
   no PHP. Preferir `DATETIME(6)` quando precisão subsegundo for importante.
 - Campos `criado_em`/`atualizado_em`: `DATETIME`, atualização controlada pelo banco
   ou aplicativo de forma consistente.
-- Valores de carga: `DECIMAL(7,2)`; não usar `FLOAT` para pesos ou volume.
+- Valores de carga: `DECIMAL(7,2)`; não usar `FLOAT` para cargas.
 - Valores de séries e repetições: `SMALLINT UNSIGNED`, positivos quando realizados;
   valores ainda não executados podem ser `NULL` conforme estado.
 - Estados e categorias: `VARCHAR` com `CHECK` válido na versão instalada,

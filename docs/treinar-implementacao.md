@@ -10,9 +10,9 @@
 4. Navega pelos círculos numerados, salva/corrige repetições e carga, conclui ou desmarca séries, adiciona séries extras.
 5. Classifica exercício como pendente, parcial, concluído automático ou concluído antecipadamente; permite reabrir.
 6. Mostra gráfico semanal com máxima carga de séries concluídas em sessões finalizadas, sem exigir encerrar treino.
-7. Exibe resumo antes de finalizar, com contagem, duração estimada e volume de carga externa, permite voltar.
+7. Exibe o resumo do treino com a contagem de séries concluídas, o estado dos exercícios e a duração após a finalização.
 8. Finalização protegida por transação e bloqueio do registro, exigindo pelo menos uma série concluída; grava duração e status.
-9. Descarte exige confirmação explícita (DESCARTAR), verifica proprietário e status; apaga apenas sessão ativa e dependências por CASCADE.
+9. Descarte exige confirmação explícita em diálogo, verifica proprietário e status; apaga apenas sessão ativa e dependências por CASCADE.
 
 ## O que ainda falta
 
@@ -31,7 +31,7 @@
 - Testar exercícios pendente/parcial/antecipado/reaberto/concluído.
 - Exibir gráfico vazio e gráfico com registro após finalizar.
 - Com zero séries concluídas: impedir finalização; permitir continuar ou descartar.
-- Conferir resumo e volume com carga opcional.
+- Conferir o resumo e testar o cancelamento e a confirmação do descarte.
 - Finalizar e tentar repetir POST: não duplicar finalização.
 - Iniciar outro treino após finalização.
 - Descartar sessão em andamento e conferir cascata no MySQL, sem excluir ficha/biblioteca.

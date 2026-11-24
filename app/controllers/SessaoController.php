@@ -175,7 +175,7 @@ final class SessaoController
     public function discard(): void
     {
         $this->post();$sid=$this->id($_POST['id']??null);
-        if(postValue('confirmar')!=='DESCARTAR'){$this->fail(422,'Digite DESCARTAR para confirmar.');}
+        if(postValue('confirmar')!=='DESCARTAR'){$this->fail(422,'Confirme o descarte da sessão.');}
         try{$this->withActive($sid,function()use($sid){
             // Dependents (sessao_exercicios/series_realizadas) are removed by FK CASCADE.
             $st=db()->prepare("DELETE FROM sessoes WHERE id=? AND usuario_id=? AND status='em_andamento'");

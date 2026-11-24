@@ -6,7 +6,7 @@
       if (!Number.isFinite(started)) return;
       const secs = Math.max(0, Math.floor((Date.now() - started) / 1000));
       const pad = n => String(n).padStart(2, '0');
-      elapsed.textContent = `Duração: ${Math.floor(secs / 3600)}:${pad(Math.floor(secs / 60) % 60)}:${pad(secs % 60)}`;
+      elapsed.textContent = `${Math.floor(secs / 3600)}:${pad(Math.floor(secs / 60) % 60)}:${pad(secs % 60)}`;
     };
     tick(); setInterval(tick, 1000);
   }

@@ -1,0 +1,146 @@
+/* Minimal Premium — dashboard e módulos em validação visual */
+.premium {
+  --bg: #0b0f12;
+  --surface: #151a1e;
+  --edge: #383f46;
+  --text: #f2f4f5;
+  --muted: #b1bac3;
+  --gp-bg: var(--bg);
+  --gp-surface: var(--surface);
+  --gp-border: var(--edge);
+  --gp-text: var(--text);
+  --gp-muted: var(--muted);
+  --gp-radius: 10px;
+  --gp-shadow: none;
+  min-height: 100dvh;
+}
+
+.premium :is(.topbar, .dash-topbar, .perfil-top) {
+  background: var(--bg);
+  border-color: var(--edge);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.premium :is(.top-label, .perfil-top > span:last-child) { display: none; }
+.premium :is(.brand-symbol, .dash-logo, .perfil-brand-icon) { box-shadow: none; border-radius: 9px; }
+.premium .gp-avatar-link { border-color: var(--edge); }
+
+.premium :is(.screen, .dashboard-screen, .perfil-main) { padding: 24px 16px 32px; }
+.premium :is(.panel, .perfil-card, .dash-active, .dash-latest, .dash-empty) {
+  background: var(--surface);
+  border: 1px solid var(--edge);
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.premium :is(.muted, .perfil-muted, .perfil-person p) { color: var(--muted); }
+.premium :is(.screen, .perfil-main) :is(input:not([type=checkbox], [type=range]), select, textarea) {
+  background: var(--bg);
+  border-color: var(--edge);
+  color: var(--text);
+}
+
+.premium :is(.primary, .dash-primary, .dash-continue, .perfil-edit-link) {
+  background: transparent;
+  color: var(--gp-accent);
+  border: 1px solid var(--gp-accent);
+  border-radius: 9px;
+  box-shadow: none;
+}
+
+.premium :is(.primary, .dash-primary, .dash-continue, .perfil-edit-link):hover {
+  background: #132a21;
+  color: var(--gp-accent);
+}
+
+.premium :is(.screen, .perfil-main) h1 { font-size: clamp(23px, 5vw, 32px); }
+.premium .page-head { gap: 10px; flex-wrap: wrap; }
+.premium .page-head .button { min-height: 44px; }
+
+.premium .dash-welcome { padding: 0; }
+.premium .dash-welcome h1 { font-size: clamp(28px, 6vw, 40px); margin-bottom: 20px; overflow-wrap: anywhere; }
+.premium .dash-primary { width: 100%; justify-content: center; min-height: 48px; padding-block: 10px; }
+.premium .dash-section { margin-top: 26px; }
+.premium .dash-section-title { flex-wrap: wrap; gap: 4px 12px; margin-bottom: 12px; }
+.premium .dash-section-title h2 { font-size: 19px; }
+.premium :is(.dash-section-title a, .dash-detail) { color: var(--gp-accent); }
+.premium .dash-stat-grid {
+  gap: 0;
+  padding-block: 14px;
+  background: var(--surface);
+  border: 1px solid var(--edge);
+  border-radius: 10px;
+}
+.premium .dash-stat {
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  background: transparent;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 0;
+}
+.premium .dash-stat + .dash-stat { border-left: 1px solid var(--edge); }
+.premium .dash-stat strong { font-size: 29px; color: var(--text); margin: 0; }
+.premium .dash-empty { display: flex; align-items: center; gap: 12px; padding: 15px 16px; text-align: left; color: var(--muted); }
+.premium .dash-empty svg { flex: none; }
+.premium .dash-empty p { margin: 0; }
+.premium .dash-latest-metrics { border-color: var(--edge); }
+
+.premium .ficha-card { position: relative; padding: 14px 36px 14px 14px; }
+.premium .ficha-card :is(h2, p) { margin-block: 0 4px; }
+.premium .ficha-card .detail-link { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); margin: 0; font-size: 21px; }
+.premium .ficha-card:hover, .premium .library-card:focus-within { border-color: var(--gp-accent); transform: none; }
+
+.premium .workout-session-title { align-items: center; }
+.premium .workout-clock { text-align: center; margin: 16px 0 20px; }
+.premium .workout-clock p { margin: 0; overflow-wrap: anywhere; }
+.premium #elapsed { font-size: clamp(24px, 8vw, 46px); font-weight: 700; font-variant-numeric: tabular-nums; }
+.premium .exercise-dots .dot { border-radius: 50%; border-color: var(--edge); box-shadow: none; }
+.premium .exercise-dots .dot:not(.concluido, .concluido_antecipadamente, .parcialmente_realizado) { background: var(--surface); }
+.premium .exercise-dots .dot[aria-current] { border-color: var(--gp-accent); }
+.premium .set-card button[value='concluir'] { background: var(--gp-accent); color: #071b12; }
+
+.premium .library-card { position: relative; padding: 13px 68px 13px 14px; gap: 4px; }
+.premium .library-card .card-header { justify-content: flex-start; flex-wrap: wrap; gap: 6px; }
+.premium .library-card :is(h2, p) { margin-block: 0; }
+.premium .library-card .library-details {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  min-height: 44px;
+  margin: 0;
+  padding: 0;
+  border-color: var(--edge);
+  color: var(--gp-accent);
+  font-size: 24px;
+}
+.premium .library-filters input[type='search'] { width: 100%; }
+
+.premium .perfil-person { background: transparent; border: 0; padding: 0; }
+.premium .perfil-avatar { width: 66px; height: 66px; border-radius: 50%; background: #303941; color: var(--text); }
+.premium .perfil-edit-link { display: inline-flex; align-items: center; min-height: 44px; padding: 6px 12px; margin-top: 8px; font-size: 14px; }
+.premium .perfil-photo-settings:not([open]) { padding-block: 0; }
+.premium .perfil-photo-settings summary { align-content: center; min-height: 44px; color: var(--gp-accent); font-weight: 650; cursor: pointer; }
+.premium .perfil-menu a { border-bottom-color: var(--edge); }
+.premium .perfil-menu a:last-child { border-bottom: 0; }
+.premium .perfil-logout button { background: transparent; border-color: var(--edge); color: var(--text); }
+
+@media (min-width: 900px) {
+  .premium .dashboard-screen {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 24px;
+  }
+  .premium .dashboard-screen > :not(.dash-section) { grid-column: 1 / -1; }
+  .premium .dash-primary { width: min(100%, 420px); }
+}
+
+.premium .library-card h2 a:hover { color: var(--gp-accent); }
+.premium .library-card:not(:has(.library-details)) { padding-right: 14px; }
+.premium #adicionar-a-ficha { scroll-margin-bottom: 100px; }

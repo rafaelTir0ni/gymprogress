@@ -1,9 +1,9 @@
 <?php $pageTitle = 'Meu perfil'; require __DIR__ . '/_top.php'; ?>
-<div class="perfil-heading"><p class="perfil-label">SUA CONTA</p><h1>Meu perfil</h1><p class="perfil-muted">Gerencie seus dados e preferências.</p></div>
+<div class="perfil-heading"><h1>Perfil</h1></div>
 <?php if ($notice !== ''): ?><p class="perfil-alert" role="status"><?= e($notice) ?></p><?php endif; ?>
-<section class="perfil-card perfil-person"><?= profileAvatarMarkup($account['foto_perfil'] ?? null, (string) $account['nome'], 'perfil-avatar') ?><div><h2><?= e($account['nome']) ?></h2><p><?= e($account['email']) ?></p></div></section>
-<section class="perfil-card perfil-photo-settings" aria-label="Foto do perfil">
-<h2>Foto de perfil</h2><p class="perfil-muted">Selecione uma foto da galeria. Formatos JPEG, PNG ou WebP (até 3 MB).</p>
+<section class="perfil-card perfil-person"><?= profileAvatarMarkup($account['foto_perfil'] ?? null, (string) $account['nome'], 'perfil-avatar') ?><div><h2><?= e($account['nome']) ?></h2><p><?= e($account['email']) ?></p><a class="perfil-edit-link" href="<?= e(routeUrl('perfil-editar')) ?>">Editar perfil</a></div></section>
+<details class="perfil-card perfil-photo-settings" id="perfil-foto">
+<summary>Alterar foto</summary><p class="perfil-muted">Selecione uma foto da galeria. Formatos JPEG, PNG ou WebP (até 3 MB).</p>
 <form method="post" action="<?= e(routeUrl('perfil-foto-salvar')) ?>" enctype="multipart/form-data" class="perfil-photo-form" id="gp-photo-form">
 <input type="hidden" name="_csrf" value="<?= e(csrfToken()) ?>">
 <label for="foto">Escolher foto</label><input id="foto" name="foto" type="file" accept="image/jpeg,image/png,image/webp" required>
@@ -27,13 +27,12 @@
 <input type="hidden" name="_csrf" value="<?= e(csrfToken()) ?>"><button type="submit">Remover foto</button>
 </form>
 <?php endif; ?>
-</section>
+</details>
 <section class="perfil-card perfil-menu" aria-label="Opções do perfil">
-<a href="<?= e(routeUrl('perfil-editar')) ?>">Editar nome e e-mail <span aria-hidden="true">›</span></a>
-<a href="<?= e(routeUrl('perfil-seguranca')) ?>">Alterar senha <span aria-hidden="true">›</span></a>
-<a href="<?= e(routeUrl('perfil-configuracoes')) ?>">Configurações do aplicativo <span aria-hidden="true">›</span></a>
 <a href="<?= e(routeUrl('historico')) ?>">Histórico de treinos <span aria-hidden="true">›</span></a>
 <a href="<?= e(routeUrl('metas')) ?>">Metas e conquistas <span aria-hidden="true">›</span></a>
+<a href="<?= e(routeUrl('perfil-seguranca')) ?>">Alterar senha <span aria-hidden="true">›</span></a>
+<a href="<?= e(routeUrl('perfil-configuracoes')) ?>">Configurações do aplicativo <span aria-hidden="true">›</span></a>
 </section>
 <form action="<?= e(routeUrl('logout')) ?>" method="post" class="perfil-logout"><input type="hidden" name="_csrf" value="<?= e(csrfToken()) ?>"><button type="submit">Sair da conta</button></form>
 <?php require __DIR__ . '/_bottom.php'; ?>

@@ -7,7 +7,7 @@
 - **197 RN, 53 CT, 58 RF e 32 RNF aprovados.** Aditivos de Foto de Perfil e RF/RNF de Metas e Conquistas homologados em 18/11/2026.
 - Regras e requisitos previamente aprovados foram preservados.
 - `README.MD` contém os documentos normativos integralmente e sincronizados.
-- Versão documentada: `0.1.0-alpha.1`. Alterações documentais posteriores constam na seção Não lançado do `CHANGELOG.md`.
+- Versão documentada: `0.1.0-alpha.2`. As mudanças desta versão constam no `CHANGELOG.md`.
 
 ## Módulos implementados e testados manualmente pelo usuário
 

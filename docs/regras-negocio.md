@@ -88,7 +88,7 @@
 | RN-T29 | Descartar uma sessão exigirá confirmação do usuário. |
 | RN-T30 | O aplicativo permitirá finalizar sessões com exercícios pendentes ou parcialmente realizados. |
 | RN-T31 | Antes da confirmação, será apresentado um resumo completo da sessão. |
-| RN-T32 | O resumo exibirá duração, exercícios concluídos, parcialmente realizados, pendentes e volume total registrado. |
+| RN-T32 | O resumo exibirá duração e exercícios concluídos, concluídos antecipadamente, parcialmente realizados e pendentes. |
 | RN-T33 | O usuário poderá voltar ao treino sem perder seus registros. |
 | RN-T34 | Após a confirmação, a sessão será marcada como finalizada e disponibilizada no Histórico. |
 | RN-T35 | Os gráficos de evolução considerarão os novos registros válidos após a finalização. |
@@ -98,7 +98,7 @@
 | Código | Cuidado técnico |
 |---|---|
 | CT-T01 | Não aceitar cargas ou repetições negativas; a carga poderá ficar vazia em exercícios sem peso externo. |
-| CT-T02 | O volume total será calculado como a soma de **carga × repetições** das séries concluídas com carga registrada. Trata-se de um indicador de trabalho com carga externa, não de todo o esforço do treino. |
+| CT-T02 | Descontinuado com a remoção do indicador de volume de carga externa. |
 | CT-T03 | Impedir a finalização duplicada de uma mesma sessão, inclusive em caso de toques repetidos ou falhas de conexão. |
 
 ### 1.8 Fluxo aprovado

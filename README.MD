@@ -6,11 +6,11 @@
 
 **PWA para Android • PHP 8 • MySQL 8.4 • JavaScript • Mobile-first**
 
-![Versão](https://img.shields.io/badge/vers%C3%A3o-0.1.0--alpha.1-059669) ![Status](https://img.shields.io/badge/status-alpha%20privada-334155) ![Plataforma](https://img.shields.io/badge/plataforma-Android%20PWA-065f46)
+![Versão](https://img.shields.io/badge/vers%C3%A3o-0.1.0--alpha.2-059669) ![Status](https://img.shields.io/badge/status-alpha%20privada-334155) ![Plataforma](https://img.shields.io/badge/plataforma-Android%20PWA-065f46)
 
 </div>
 
-> **Versão atual documentada:** `v0.1.0-alpha.1` — *pré-lançamento, uso pessoal*. **Próximo marco proposto:** `v0.1.0-alpha.2` (refinamentos de interface e documentação). A numeração é um marco documental; não implica tag ou release publicado no GitHub.
+> **Versão atual documentada:** `v0.1.0-alpha.2` · Pré-lançamento para uso pessoal.
 >
 > **Estado documental em 18/11/2026:** os módulos principais passaram por testes funcionais manuais relatados no Laragon; o PWA foi instalado no Windows e no Android, acessado por HTTPS privado via Tailscale. Isso **não** equivale a homologação de segurança e cobertura automatizada completas.
 
@@ -115,14 +115,14 @@ O GymProgress foi testado com **Tailscale** no Windows e no Android, usando HTTP
 
 | Marco | Escopo | Estado |
 |---|---|---|
-| **`v0.1.0-alpha.1`** | Primeira versão Alpha **documentada**: módulos funcionais, PWA privado e editor de avatar | **Atual** |
-| `v0.1.0-alpha.2` | Refinar o visual de todas as telas, especialmente o uso no Android | Próximo marco proposto |
+| `v0.1.0-alpha.1` | Primeira versão Alpha documentada com módulos funcionais, PWA privado e editor de avatar | Anterior |
+| **`v0.1.0-alpha.2`** | Estilo Minimal Premium B no Dashboard, Fichas, Treinar, Biblioteca e Perfil, com navegação inferior padronizada | **Atual** |
 | `v0.1.0-alpha.3` | Melhorias de interação, acessibilidade e correções após testes no celular | Planejado |
 | `v0.2.0-beta.1` | Ampliar testes automatizados, segurança, backup/restauração e estabilização | Planejado |
 | `v0.2.0-rc.1` | Revisão final das migrações, consistência de dados e critérios de aceitação | Planejado |
 | `v1.0.0` | Primeira versão estável para uso pessoal | Objetivo futuro |
 
-**Histórico:** os módulos foram implementados antes da adoção de um versionamento formal. Não atribuí versões anteriores fictícias aos commits. O arquivo [`CHANGELOG.md`](CHANGELOG.md) registra somente o primeiro marco documentado e alterações futuras efetivas. As versões planejadas **não** representam tags ou releases já publicados.
+**Histórico:** os módulos foram implementados antes da adoção de um versionamento formal. Não atribuí versões anteriores fictícias aos commits. O arquivo [`CHANGELOG.md`](CHANGELOG.md) registra as mudanças de cada marco documentado. As versões planejadas **não** representam tags ou releases já publicados.
 
 ## Rastreabilidade e documentação
 
@@ -244,7 +244,7 @@ O índice navegável de todos os documentos fica em [`docs/README.md`](docs/READ
 | RN-T29 | Descartar uma sessão exigirá confirmação do usuário. |
 | RN-T30 | O aplicativo permitirá finalizar sessões com exercícios pendentes ou parcialmente realizados. |
 | RN-T31 | Antes da confirmação, será apresentado um resumo completo da sessão. |
-| RN-T32 | O resumo exibirá duração, exercícios concluídos, parcialmente realizados, pendentes e volume total registrado. |
+| RN-T32 | O resumo exibirá duração e exercícios concluídos, concluídos antecipadamente, parcialmente realizados e pendentes. |
 | RN-T33 | O usuário poderá voltar ao treino sem perder seus registros. |
 | RN-T34 | Após a confirmação, a sessão será marcada como finalizada e disponibilizada no Histórico. |
 | RN-T35 | Os gráficos de evolução considerarão os novos registros válidos após a finalização. |
@@ -254,7 +254,7 @@ O índice navegável de todos os documentos fica em [`docs/README.md`](docs/READ
 | Código | Cuidado técnico |
 |---|---|
 | CT-T01 | Não aceitar cargas ou repetições negativas; a carga poderá ficar vazia em exercícios sem peso externo. |
-| CT-T02 | O volume total será calculado como a soma de **carga × repetições** das séries concluídas com carga registrada. Trata-se de um indicador de trabalho com carga externa, não de todo o esforço do treino. |
+| CT-T02 | Descontinuado com a remoção do indicador de volume de carga externa. |
 | CT-T03 | Impedir a finalização duplicada de uma mesma sessão, inclusive em caso de toques repetidos ou falhas de conexão. |
 
 #### 1.8 Fluxo aprovado

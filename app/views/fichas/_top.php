@@ -4,14 +4,16 @@ $pageTitle = $pageTitle ?? 'Fichas';
 ?><!doctype html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b1010"><meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f12"><meta name="color-scheme" content="dark">
 <title><?= e($pageTitle) ?> | GymProgress</title>
 <link rel="stylesheet" href="assets/css/fichas.css">
-<link rel="stylesheet" href="assets/css/style.css"><link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/premium.css">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/img/icons/icon-192.png">
 <link rel="apple-touch-icon" href="assets/img/icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <script src="assets/js/main.js" defer></script>
-</head><body><header class="topbar"><a class="brand" href="<?= e(routeUrl('dashboard')) ?>"><span class="brand-symbol">G</span> GymProgress</a><span class="top-label">Minhas fichas</span></header>
+</head><body class="premium premium-fichas"><header class="topbar"><a class="brand" href="<?= e(routeUrl('dashboard')) ?>"><span class="brand-symbol">G</span> GymProgress</a><span class="top-label">Minhas fichas</span></header>
 <main class="screen">

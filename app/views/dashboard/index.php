@@ -10,11 +10,13 @@ $duration = static function (int $seconds): string {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b1010">
+<meta name="theme-color" content="#0b0f12">
 <meta name="color-scheme" content="dark">
 <title>Início | GymProgress</title>
 <link rel="stylesheet" href="assets/css/dashboard.css">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/premium.css">
+
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/img/icons/icon-192.png">
 <link rel="apple-touch-icon" href="assets/img/icons/icon-192.png">
@@ -22,7 +24,7 @@ $duration = static function (int $seconds): string {
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <script src="assets/js/main.js" defer></script>
 </head>
-<body>
+<body class="premium premium-dashboard">
 <header class="dash-topbar">
   <a class="dash-brand" href="<?= e(routeUrl('dashboard')) ?>"><span class="dash-logo">G</span><span>GymProgress</span></a>
   <a class="gp-avatar-link" href="<?= e(routeUrl('perfil')) ?>" aria-label="Abrir meu perfil" title="Meu perfil">
@@ -52,10 +54,8 @@ $duration = static function (int $seconds): string {
   </section>
   <?php endif; ?>
   <section class="dash-welcome" aria-label="Boas-vindas">
-    <p class="dash-eyebrow">SEU PAINEL DE TREINOS</p>
     <h1>Olá, <?= e($firstName ?: 'Atleta') ?>!</h1>
-    <p>Acompanhe sua constância e continue evoluindo, um treino de cada vez.</p>
-    <a class="dash-button dash-primary" href="<?= e(routeUrl('treinar')) ?>">Iniciar treino <span aria-hidden="true">↗</span></a>
+    <a class="dash-button dash-primary" href="<?= e(routeUrl('treinar')) ?>">Iniciar treino</a>
   </section>
 
   <?php if ($active): ?>
@@ -71,13 +71,13 @@ $duration = static function (int $seconds): string {
   <section class="dash-section" aria-labelledby="dash-frequencia">
     <div class="dash-section-title"><h2 id="dash-frequencia">Sua frequência</h2><span>Treinos finalizados</span></div>
     <div class="dash-stat-grid">
-      <article class="dash-stat"><span class="dash-stat-icon" aria-hidden="true">◫</span><strong><?= (int) $counts['semana'] ?></strong><span>Esta semana</span><small>Desde segunda-feira</small></article>
-      <article class="dash-stat"><span class="dash-stat-icon" aria-hidden="true">▦</span><strong><?= (int) $counts['mes'] ?></strong><span>Este mês</span><small><?= e($today->format('m/Y')) ?></small></article>
+      <article class="dash-stat"><strong><?= (int) $counts['semana'] ?></strong><span>Esta semana</span><small>Desde segunda-feira</small></article>
+      <article class="dash-stat"><strong><?= (int) $counts['mes'] ?></strong><span>Este mês</span><small><?= e($today->format('m/Y')) ?></small></article>
     </div>
   </section>
 
   <section class="dash-section" aria-labelledby="dash-ultimo">
-    <div class="dash-section-title"><h2 id="dash-ultimo">Último treino</h2><a href="<?= e(routeUrl('historico')) ?>">Ver Histórico <span aria-hidden="true">→</span></a></div>
+    <div class="dash-section-title"><h2 id="dash-ultimo">Último treino</h2><a href="<?= e(routeUrl('historico')) ?>">Ver histórico</a></div>
     <?php if ($latest): ?>
     <article class="dash-latest">
       <span class="dash-complete">● FINALIZADO</span>
@@ -90,8 +90,10 @@ $duration = static function (int $seconds): string {
       <a class="dash-detail" href="<?= e(routeUrl('historico-detalhes') . '&id=' . (int) $latest['id']) ?>">Ver detalhes do treino <span aria-hidden="true">→</span></a>
     </article>
     <?php else: ?>
-    <div class="dash-empty"><span aria-hidden="true">◉</span><h3>Seu histórico começa aqui</h3>
-      <p>Finalize seu primeiro treino para acompanhar seu progresso neste painel.</p></div>
+    <div class="dash-empty">
+      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18m-12 5h6"/></svg>
+      <p>Nenhum treino registrado</p>
+    </div>
     <?php endif; ?>
   </section>
   <p class="dash-footer-note">Os indicadores consideram apenas treinos finalizados.</p>
